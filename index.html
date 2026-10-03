@@ -243,6 +243,23 @@ ul.check li.done::after {
 }
 .path i { font-style: normal; color: var(--muted); margin: 0 4px; }
 
+/* screenshots */
+.shots {
+  display: flex; gap: 14px; overflow-x: auto; padding: 4px 2px 12px; margin: 16px 0;
+  scroll-snap-type: x mandatory;
+}
+.shots figure { margin: 0; flex: 0 0 200px; scroll-snap-align: start; }
+.shots img, .shot img {
+  width: 100%; height: auto; display: block;
+  border-radius: 22px; border: 1px solid var(--border); background: #fff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / .04), 0 6px 20px rgb(0 0 0 / .06);
+}
+.shots figcaption, .shot figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+.shots figcaption b { color: var(--text); }
+.with-shot { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; align-items: start; }
+.shot { margin: 0; }
+.ui { font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
+
 footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
 
 /* mobile */
@@ -256,6 +273,9 @@ footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border
   }
   nav.toc.open { display: block; }
   .grid-2 { grid-template-columns: minmax(0, 1fr); }
+  .with-shot { grid-template-columns: minmax(0, 1fr); }
+  .with-shot .shot { max-width: 220px; }
+  .shots figure { flex-basis: 170px; }
   .path { white-space: normal; }
 }
 </style>
@@ -275,15 +295,17 @@ footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border
   <nav class="toc" id="toc" aria-label="สารบัญ">
     <ol>
       <li><a href="#start">เริ่มต้นใช้งาน</a></li>
-      <li><a href="#profiles">ประเภทการตั้งค่า</a></li>
-      <li><a href="#subscription">ตั้งค่าแบบลิงก์</a></li>
+      <li><a href="#profiles">ประเภท Config</a></li>
+      <li><a href="#single">เพิ่มช่องเดี่ยว m3u8</a></li>
+      <li><a href="#subscription">ฟอร์ม Subscribe</a></li>
       <li><a href="#aggregate">รวมหลายแหล่ง</a></li>
-      <li><a href="#mac">ทริคบน Mac</a></li>
+      <li><a href="#settings">ตั้งค่าที่ควรรู้</a></li>
       <li><a href="#catchup">ดูย้อนหลัง</a></li>
       <li><a href="#icloud">iCloud &amp; Apple TV</a></li>
       <li><a href="#restore">กู้คืนการซื้อ</a></li>
       <li><a href="#ipv6">ช่อง IPv6</a></li>
       <li><a href="#faq">คำถามที่พบบ่อย</a></li>
+      <li><a href="#browser">YouTube / Browser</a></li>
     </ol>
   </nav>
 
@@ -294,9 +316,10 @@ footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border
         <span class="pill">Apple TV</span>
         <span class="pill">Mac</span>
         <span class="pill">Apple Watch</span>
+        <span class="pill">ภาพจากแอปเวอร์ชัน 1.5.12</span>
       </div>
       <h1>คู่มือ APTV ฉบับใช้งานจริง</h1>
-      <p>APTV เป็นแอปเล่น IPTV (ไฟล์ m3u / txt) บนอุปกรณ์ Apple ทุกเครื่อง หน้านี้สรุปจาก <a href="https://docs.aptvapp.com/" target="_blank" rel="noopener">คู่มือทางการ (ภาษาจีน)</a> เหลือแต่สิ่งที่ต้องรู้จริง ตั้งแต่เพิ่มช่องครั้งแรกไปจนถึงแก้ปัญหาที่เจอบ่อย</p>
+      <p>APTV เป็นแอปเล่น IPTV (ไฟล์ m3u / txt, Xtream Codes, Stalker Portal) บนอุปกรณ์ Apple ทุกเครื่อง หน้านี้สรุปจาก <a href="https://docs.aptvapp.com/" target="_blank" rel="noopener">คู่มือทางการ (ภาษาจีน)</a> พร้อมภาพหน้าจอจริง ชื่อเมนูอ้างอิงแอปที่ตั้งภาษาเป็น English</p>
     </div>
 
     <div class="note tip">
@@ -306,100 +329,181 @@ footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border
 
     <!-- 1 -->
     <section id="start">
-      <h2><span class="num">01</span>เริ่มต้นใช้งานใน 6 ขั้นตอน</h2>
-      <p class="lead">หลักการคือ “เพิ่มการตั้งค่า (Profile) → เลือกใช้งาน → ไปหน้าช่อง”</p>
+      <h2><span class="num">01</span>เริ่มต้นใช้งาน</h2>
+      <p class="lead">หลักการคือ “เพิ่ม Config → แตะเลือกใช้งาน → ไปหน้า Channel”</p>
       <ol class="steps">
-        <li><strong>แตะแท็บ “การตั้งค่า” (配置) ที่แถบด้านล่าง</strong><span>เข้าสู่ศูนย์การตั้งค่า (Profile Center)</span></li>
-        <li><strong>แตะปุ่ม + มุมขวาบน</strong><span>เพื่อเพิ่มการตั้งค่าใหม่</span></li>
-        <li><strong>เลือก “การตั้งค่าแบบลิงก์” (Subscription) แล้ววางลิงก์ m3u/txt</strong><span>ใส่ลิงก์ก่อน แล้วค่อยใส่ชื่อ — ถ้าอยากลองก่อน ใช้ลิงก์สาธิต <code>https://pastebin.com/raw/40MQLfcA</code> (ไม่มีช่องจริง ใช้สำหรับฝึกเท่านั้น)</span></li>
-        <li><strong>แตะการตั้งค่าที่เพิ่งเพิ่ม ให้มีเครื่องหมายสีเขียวด้านขวา</strong><span>เครื่องหมายเขียว = การตั้งค่าที่กำลังใช้งานอยู่</span></li>
-        <li><strong>แตะแท็บ “ช่อง” (频道) ด้านล่าง</strong><span>จะเห็นรายการช่องจากแหล่งที่เพิ่มไว้</span></li>
-        <li><strong>แตะช่องเพื่อเล่น</strong><span>เสร็จแล้ว</span></li>
+        <li><strong>แตะแท็บ <span class="ui">Config</span> ที่แถบด้านล่าง</strong><span>เข้าสู่ Config Center</span></li>
+        <li><strong>แตะไอคอนโซ่ + มุมขวาบน</strong><span>จะมีเมนู Add config ให้เลือกประเภท</span></li>
+        <li><strong>เลือก <span class="ui">Subscribe</span> แล้ววางลิงก์ m3u/txt → แตะ 保存 (บันทึก) มุมขวาบน</strong><span>อยากลองก่อน ใช้ลิงก์สาธิต <code>https://pastebin.com/raw/40MQLfcA</code> (ไม่มีช่องจริง ใช้ฝึกเท่านั้น)</span></li>
+        <li><strong>แตะวงกลมด้านขวาของ Config ที่เพิ่งเพิ่ม</strong><span>ให้ขึ้นเครื่องหมายถูก = Config ที่กำลังใช้งานอยู่ (เพิ่มแล้วไม่แตะ จะไม่มีช่องขึ้น)</span></li>
+        <li><strong>แตะแท็บ <span class="ui">Channel</span> แล้วแตะช่องเพื่อเล่น</strong><span>การ์ดช่องจะมีภาพพรีวิวและค่า Delay (ms) — ตัวเลขยิ่งน้อยยิ่งดี</span></li>
       </ol>
+      <div class="shots">
+        <figure><img src="img/01-config-center.jpg" alt="หน้า Config Center ว่างเปล่า" loading="lazy"><figcaption><b>1–2</b> Config Center — ปุ่มโซ่ + คือเพิ่ม Config</figcaption></figure>
+        <figure><img src="img/02-add-config-menu.jpg" alt="เมนู Add config" loading="lazy"><figcaption><b>3</b> เมนูเลือกประเภท Config</figcaption></figure>
+        <figure><img src="img/04-config-added.jpg" alt="เพิ่ม Config สำเร็จ" loading="lazy"><figcaption><b>4</b> แตะวงกลมขวามือเพื่อเลือกใช้งาน</figcaption></figure>
+        <figure><img src="img/07-channel-list.jpg" alt="รายการช่อง" loading="lazy"><figcaption><b>5</b> หน้า Channel แสดงพรีวิว + Delay</figcaption></figure>
+      </div>
       <div class="note warn">
         <b class="label">ห้ามลืม: เปิด iCloud Sync ตั้งแต่วันแรก</b>
-        ถ้าไม่เปิด แล้วลบ/ติดตั้งแอปใหม่ การตั้งค่าทั้งหมดจะหายและกู้คืนไม่ได้ — ดูวิธีที่ <a href="#icloud">หัวข้อ iCloud</a>
+        ค่าเริ่มต้นปิดอยู่ ถ้าไม่เปิด แล้วลบ/ติดตั้งแอปใหม่ Config ทั้งหมดจะหายและกู้คืนไม่ได้ — ดู <a href="#icloud">หัวข้อ iCloud</a>
       </div>
     </section>
 
     <!-- 2 -->
     <section id="profiles">
-      <h2><span class="num">02</span>ประเภทการตั้งค่า เลือกแบบไหนดี</h2>
-      <p class="lead">APTV มีการตั้งค่า 4 แบบ เลือกตามสิ่งที่คุณมีอยู่ในมือ</p>
-      <div class="grid-2">
-        <div class="card profile">
-          <h3>แบบลิงก์ <span class="zh">订阅配置 · Subscription</span></h3>
-          <p>วางลิงก์ m3u หรือ txt จากผู้ให้บริการ อัปเดตตามต้นทางได้อัตโนมัติ</p>
-          <p class="use">ใช้เมื่อ: ได้ลิงก์ playlist มา (กรณีที่พบบ่อยที่สุด)</p>
+      <h2><span class="num">02</span>ประเภท Config เลือกแบบไหนดี</h2>
+      <p class="lead">เมนู Add config มี 6 แบบ เลือกตามสิ่งที่ผู้ให้บริการให้มา</p>
+      <div class="with-shot">
+        <div class="grid-2">
+          <div class="card profile">
+            <h3>Subscribe</h3>
+            <p>วางลิงก์ m3u หรือ txt อัปเดตตามต้นทางได้อัตโนมัติ</p>
+            <p class="use">ใช้เมื่อ: ได้ลิงก์ playlist มา (พบบ่อยที่สุด)</p>
+          </div>
+          <div class="card profile">
+            <h3>Local</h3>
+            <p>เลือกไฟล์ m3u/txt จากเครื่องหรือ iCloud Drive หรือกด “แชร์ → เปิดด้วย APTV” จากแอปอื่น</p>
+            <p class="use">ใช้เมื่อ: มีไฟล์ playlist อยู่แล้ว</p>
+          </div>
+          <div class="card profile">
+            <h3>Blank</h3>
+            <p>Config เปล่า ไว้เพิ่มช่องเองทีละช่อง</p>
+            <p class="use">ใช้เมื่อ: มีแค่ลิงก์สตรีม (m3u8) — ดู <a href="#single">หัวข้อ 03</a></p>
+          </div>
+          <div class="card profile">
+            <h3>Merging Config</h3>
+            <p>รวมหลาย Config เป็นอันเดียว ช่องชื่อเดียวกันจะรวมกันและสลับแหล่งสำรองเอง</p>
+            <p class="use">ใช้เมื่อ: มีหลายแหล่ง อยากได้ช่องที่ไม่ค่อยดับ</p>
+          </div>
+          <div class="card profile">
+            <h3>Xtream Codes</h3>
+            <p>กรอก Server URL, Username, Password ที่ผู้ให้บริการ IPTV ให้มา</p>
+            <p class="use">ใช้เมื่อ: ได้ข้อมูลล็อกอินแบบ Xtream</p>
+          </div>
+          <div class="card profile">
+            <h3>Stalker Portal</h3>
+            <p>กรอก Portal URL และ MAC Address</p>
+            <p class="use">ใช้เมื่อ: ผู้ให้บริการให้เป็นแบบ MAG/Portal</p>
+          </div>
         </div>
-        <div class="card profile">
-          <h3>แบบไฟล์ในเครื่อง <span class="zh">本地配置 · Local</span></h3>
-          <p>เลือกไฟล์ m3u/txt จากเครื่องหรือ iCloud Drive หรือกด “แชร์ → เปิดด้วย APTV” จากแอปอื่น</p>
-          <p class="use">ใช้เมื่อ: มีไฟล์ playlist อยู่แล้ว</p>
-        </div>
-        <div class="card profile">
-          <h3>แบบว่างเปล่า <span class="zh">空白配置 · Blank</span></h3>
-          <p>กล่องเปล่าไม่มีช่อง สร้างแล้วกด “ใช้งาน” จากนั้นกลับไปหน้าช่อง แตะปุ่มแรกมุมขวาบนเพื่อเพิ่มช่องทีละช่อง</p>
-          <p class="use">ใช้เมื่อ: มีแค่ลิงก์ช่องเดียว (m3u8)</p>
-        </div>
-        <div class="card profile">
-          <h3>แบบรวม <span class="zh">聚合配置 · Aggregate</span></h3>
-          <p>รวมหลายการตั้งค่าเป็นอันเดียว ช่องชื่อเดียวกันจะถูกรวม และสลับไปแหล่งสำรองให้อัตโนมัติถ้าเล่นไม่ได้</p>
-          <p class="use">ใช้เมื่อ: มีหลายแหล่งและอยากได้ช่องที่ “ไม่ค่อยดับ”</p>
-        </div>
+        <figure class="shot"><img src="img/02-add-config-menu.jpg" alt="เมนู Add config 6 ประเภท" loading="lazy"><figcaption>เมนู Add config</figcaption></figure>
       </div>
       <div class="note">
-        <b class="label">เพิ่มไฟล์ในเครื่องแล้วไม่ขึ้นในรายการ?</b>
+        <b class="label">เพิ่มไฟล์ Local แล้วไม่ขึ้นในรายการ?</b>
         ปัดปิดแอป (ปัดขึ้นจาก App Switcher) แล้วเปิดใหม่
       </div>
     </section>
 
     <!-- 3 -->
+    <section id="single">
+      <h2><span class="num">03</span>เพิ่มช่องเดี่ยวจากลิงก์ m3u8</h2>
+      <p class="lead">มีแค่ลิงก์สตรีมช่องเดียว ใช้ Config แบบ Blank</p>
+      <ol class="steps">
+        <li><strong>Config → ปุ่มโซ่ + → <span class="ui">Blank</span></strong><span>ใส่ชื่อ Config (ไม่ใส่ก็ได้ จะชื่อ Default) แล้วแตะ 保存</span></li>
+        <li><strong>แตะวงกลมขวามือให้ Config นี้ถูกเลือก</strong></li>
+        <li><strong>ไปแท็บ Channel → แตะ <span class="ui">添加单频道</span> (Add single channel)</strong><span>หรือ 添加多频道 = เพิ่มหลายช่อง, 添加融合频道 = ช่องรวมหลายแหล่ง</span></li>
+        <li><strong>กรอก <span class="ui">Channel URL</span> และ <span class="ui">Channel Name</span> → 保存</strong><span>รองรับ HTTP, RTP, RTSP, RTMP ส่วนช่องอื่นไม่ต้องกรอก</span></li>
+        <li><strong>แตะช่องเพื่อเล่น</strong></li>
+      </ol>
+      <div class="shots">
+        <figure><img src="img/03-blank-config-form.jpg" alt="ฟอร์ม Add Blank Config" loading="lazy"><figcaption><b>1</b> Add Blank Config</figcaption></figure>
+        <figure><img src="img/05-empty-config-add-channel.jpg" alt="Config ว่าง มีปุ่มเพิ่มช่อง" loading="lazy"><figcaption><b>3</b> ปุ่มเพิ่มช่องในหน้า Channel</figcaption></figure>
+        <figure><img src="img/06-add-channel-form.jpg" alt="ฟอร์ม Add channel" loading="lazy"><figcaption><b>4</b> ฟอร์ม Add channel</figcaption></figure>
+        <figure><img src="img/08-player.jpg" alt="หน้าเล่นช่อง" loading="lazy"><figcaption><b>5</b> หน้าเล่น: ♡ รายการโปรด, AirPlay, ข้อมูลสตรีม</figcaption></figure>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ช่องในฟอร์ม</th><th>ใช้ทำอะไร</th></tr></thead>
+          <tbody>
+            <tr><td>Channel URL *</td><td>ลิงก์สตรีม (จำเป็น)</td></tr>
+            <tr><td>Channel Name / Logo</td><td>ชื่อและโลโก้ช่อง (ไม่ใส่ก็ได้)</td></tr>
+            <tr><td>EPG ID / EPG Name</td><td>ค่า <code>tvg-id</code> / <code>tvg-name</code> สำหรับจับคู่ผังรายการ</td></tr>
+            <tr><td>Request Parameters</td><td>ใส่ Header เช่น User-Agent, Referer สำหรับลิงก์ที่ต้องใช้</td></tr>
+            <tr><td>catchup</td><td><code>default</code> / <code>append</code> สำหรับดูย้อนหลัง — ดู <a href="#catchup">หัวข้อ 07</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note tip">
+        <b class="label">แค่อยากลองเปิดลิงก์ ไม่ต้องบันทึก</b>
+        ใช้ปุ่ม ▶ มุมขวาบนหน้า Channel = <span class="ui">Quick Play</span> → Network Playback วาง URL แล้วเล่นทันที (มี Local Playback และ Browser ด้วย)
+      </div>
+    </section>
+
+    <!-- 4 -->
     <section id="subscription">
-      <h2><span class="num">03</span>ช่องต่าง ๆ ในการตั้งค่าแบบลิงก์</h2>
+      <h2><span class="num">04</span>ช่องต่าง ๆ ในฟอร์ม Subscribe</h2>
       <p class="lead">กรอกแค่ลิงก์ก็ใช้ได้ ที่เหลือเป็นตัวเลือกเสริม</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>ช่อง</th><th>ใส่อะไร</th><th>คำแนะนำ</th></tr></thead>
           <tbody>
-            <tr><td>ลิงก์การตั้งค่า</td><td>ลิงก์ m3u หรือ txt</td><td>ต้องเป็น <b>ลิงก์ตรงไปที่ไฟล์</b> ไม่ใช่ลิงก์หน้าเว็บ (เช่น Pastebin ต้องใช้ลิงก์ <code>/raw/</code>)</td></tr>
-            <tr><td>ชื่อ</td><td>ตั้งเองได้</td><td>เว้นว่างได้ ค่าเริ่มต้นคือ <code>Default</code></td></tr>
-            <tr><td>ลิงก์ผังรายการ (EPG)</td><td>ลิงก์ XML (XMLTV) หรือ API แบบ DIYP</td><td>ใส่เพื่อดูว่าตอนนี้/ต่อไปฉายอะไร</td></tr>
-            <tr><td>รีเฟรชการตั้งค่าอัตโนมัติ</td><td>เปิด/ปิด</td><td>เมื่อเปิดแอป ถ้าไม่ได้อัปเดตเกิน 8 ชั่วโมงจะดึงใหม่เอง — แนะนำให้เปิดถ้าต้นทางเปลี่ยนบ่อย</td></tr>
-            <tr><td>รีเฟรชภาพตัวอย่างอัตโนมัติ</td><td>เปิด/ปิด</td><td>รีเฟรชภาพพรีวิวในรายการช่องทุกครั้งที่เปิดแอป</td></tr>
+            <tr><td>ลิงก์ Config</td><td>ลิงก์ m3u หรือ txt</td><td>ต้องเป็น <b>ลิงก์ตรงไปที่ไฟล์</b> ไม่ใช่ลิงก์หน้าเว็บ (เช่น Pastebin ต้องใช้ลิงก์ <code>/raw/</code>)</td></tr>
+            <tr><td>Config Name</td><td>ตั้งเองได้</td><td>เว้นว่างได้ ค่าเริ่มต้นคือ <code>Default</code></td></tr>
+            <tr><td>EPG Address</td><td>ลิงก์ XML (XMLTV) หรือ API แบบ DIYP</td><td>ไม่ใส่ แอปจะใช้ <code>url-tvg</code> ในไฟล์ m3u ก่อน แล้วค่อยใช้ Default EPG ของแอป</td></tr>
+            <tr><td>Auto Refresh</td><td>เปิด/ปิด</td><td>เปิดแอปแล้วถ้าไม่ได้อัปเดตเกิน 8 ชั่วโมง จะดึงใหม่เอง — แนะนำถ้าต้นทางเปลี่ยนบ่อย</td></tr>
+            <tr><td>Hide preview</td><td>เปิด/ปิด</td><td>ปิดภาพพรีวิวช่อง ช่วยประหยัดเน็ตเมื่อมีช่องเยอะ</td></tr>
+            <tr><td>Do Not Show Groups</td><td>เปิด/ปิด</td><td>แสดงช่องเป็นรายการเดียว ไม่แบ่งหมวด</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- 4 -->
-    <section id="aggregate">
-      <h2><span class="num">04</span>รวมหลายแหล่ง (Aggregate) ให้ช่องไม่ดับ</h2>
-      <ol class="steps">
-        <li><strong>ศูนย์การตั้งค่า → + → เลือก “การตั้งค่าแบบรวม”</strong></li>
-        <li><strong>เลือกการตั้งค่าที่จะรวมอย่างน้อย 1 อัน</strong><span>ลำดับที่แตะเลือก = ลำดับความสำคัญของแหล่ง (แหล่งแรกเล่นก่อน)</span></li>
-        <li><strong>ดูรายการช่อง</strong><span>ค่าเริ่มต้นจะไม่แบ่งหมวดหมู่ มุมขวาบนของแต่ละช่องจะบอกจำนวนแหล่งสำรอง</span></li>
-        <li><strong>เล่นช่อง</strong><span>ถ้าแหล่งปัจจุบันเล่นไม่ได้ จะสลับไปแหล่งถัดไปเอง</span></li>
-      </ol>
-      <div class="note tip">
-        <b class="label">ปรับเวลารอก่อนสลับแหล่ง</b>
-        ค่าเริ่มต้น 5 วินาที ปรับได้ที่ <span class="path">ตั้งค่า<i>›</i>ตั้งค่าขั้นสูง<i>›</i>เวลาหมดเวลาการเล่น</span>
-      </div>
-      <p>เคล็ดลับ: ชื่อช่องต้องตรงกันทุกตัวอักษร ถึงจะถูกรวมเป็นช่องเดียว ถ้าแหล่งหนึ่งชื่อ <code>Thai PBS</code> อีกแหล่งชื่อ <code>ThaiPBS HD</code> จะไม่ถูกรวม</p>
-    </section>
-
     <!-- 5 -->
-    <section id="mac">
-      <h2><span class="num">05</span>ทริคบน Mac</h2>
-      <div class="grid-2">
-        <div class="card"><b>เพิ่มไฟล์แบบลากวาง</b><p style="margin:4px 0 0;font-size:15px">ลากไฟล์ m3u/txt จาก Finder มาวางในศูนย์การตั้งค่าได้เลย</p></div>
-        <div class="card"><b>เพิ่มลิงก์จากคลิปบอร์ด</b><p style="margin:4px 0 0;font-size:15px">คัดลอกลิงก์ไว้ แล้วกดวาง (⌘V) ในศูนย์การตั้งค่า ระบบจะเพิ่มให้ทันที</p></div>
+    <section id="aggregate">
+      <h2><span class="num">05</span>Merging Config: รวมหลายแหล่งให้ช่องไม่ดับ</h2>
+      <div class="with-shot">
+        <div>
+          <ol class="steps">
+            <li><strong>Config → ปุ่มโซ่ + → <span class="ui">Merging Config</span></strong></li>
+            <li><strong>เลือก Config ที่จะรวมอย่างน้อย 1 อัน</strong><span>ลำดับที่แตะเลือก = ลำดับความสำคัญ (แหล่งแรกเล่นก่อน)</span></li>
+            <li><strong>ดูรายการช่อง</strong><span>มุมขวาบนของช่องบอกจำนวนแหล่งสำรอง</span></li>
+            <li><strong>เล่นช่อง</strong><span>แหล่งปัจจุบันเล่นไม่ได้ จะสลับไปแหล่งถัดไปเอง</span></li>
+          </ol>
+          <div class="note tip">
+            <b class="label">ปรับเวลารอก่อนสลับแหล่ง</b>
+            ค่าเริ่มต้น 5 วินาที ปรับที่ <span class="path">Setting<i>›</i>Advanced<i>›</i>Merging Config<i>›</i>Play Timeout</span>
+          </div>
+          <p>เคล็ดลับ: ชื่อช่องต้องตรงกันทุกตัวอักษรถึงจะรวมกัน ถ้าแหล่งหนึ่งชื่อ <code>Thai PBS</code> อีกแหล่งชื่อ <code>ThaiPBS HD</code> จะไม่ถูกรวม</p>
+        </div>
+        <figure class="shot"><img src="img/11-advanced-merge-timeout.jpg" alt="Advanced: Merging Config Play Timeout" loading="lazy"><figcaption>Setting › Advanced</figcaption></figure>
       </div>
     </section>
 
     <!-- 6 -->
+    <section id="settings">
+      <h2><span class="num">06</span>ตั้งค่าที่ควรรู้</h2>
+      <div class="with-shot">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>เมนู</th><th>ใช้ทำอะไร</th></tr></thead>
+            <tbody>
+              <tr><td>Setting › Preferred Player</td><td>เลือก engine เล่นวิดีโอ ช่องไหนเล่นไม่ได้ลองเปลี่ยนตัวนี้</td></tr>
+              <tr><td>Play In Background / Automatic PiP</td><td>เล่นเสียงต่อเมื่อออกจากแอป / ย่อเป็นจอลอยอัตโนมัติ</td></tr>
+              <tr><td>Show Delay / Show IPV6 ID</td><td>แสดงค่า ms และป้าย IPv6 บนการ์ดช่อง</td></tr>
+              <tr><td>Auto Load EPG / Default EPG</td><td>โหลดผังรายการอัตโนมัติ มี EPG เริ่มต้นของแอปให้</td></tr>
+              <tr><td>Advanced › Minimum Buffer Time</td><td>เพิ่มถ้าภาพกระตุกบ่อย (แลกกับเปิดช่องช้าลง)</td></tr>
+              <tr><td>Advanced › Hardware Decoding</td><td>เปิดไว้ลื่นกว่า ปิดเมื่อเจอฟอร์แมตที่เล่นไม่ได้ (เครื่องอาจร้อน)</td></tr>
+              <tr><td>Advanced › DeInterlace</td><td>แก้ภาพเป็นเส้นหวีในช่องแบบ interlaced</td></tr>
+              <tr><td>Advanced › User-Agent / Proxy</td><td>UA ที่ส่งไปทุกช่อง / ตั้ง Proxy เฉพาะแอป</td></tr>
+              <tr><td>Advanced › Realtime Subtitles</td><td>ซับไตเติลจากเสียงพูดแบบเรียลไทม์ + แปลภาษา (โหลดโมเดลก่อน แล้วกด Auto Subtitles ระหว่างเล่น)</td></tr>
+              <tr><td>Advanced › Laboratory</td><td>ฟีเจอร์ทดลอง เช่น Preselect HLS Quality, Replace PLTV with TVOD</td></tr>
+              <tr><td>About APTV › AI Assistant</td><td>แชตบอตถาม-ตอบเรื่อง APTV ในแอป</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figure class="shot"><img src="img/09-settings-top.jpg" alt="หน้า Setting" loading="lazy"><figcaption>หน้า Setting</figcaption></figure>
+      </div>
+      <h3>ทริคบน Mac</h3>
+      <ul>
+        <li>ลากไฟล์ m3u/txt จาก Finder มาวางใน Config Center เพื่อเพิ่ม Local ได้เลย</li>
+        <li>คัดลอกลิงก์ไว้ แล้วกด ⌘V ใน Config Center ระบบจะเพิ่ม Subscribe ให้ทันที</li>
+      </ul>
+    </section>
+
+    <!-- 7 -->
     <section id="catchup">
-      <h2><span class="num">06</span>ดูย้อนหลัง (Catch-up)</h2>
+      <h2><span class="num">07</span>ดูย้อนหลัง (Catch-up)</h2>
       <p class="lead">สำหรับคนที่แก้ไฟล์ m3u เอง — ผู้ใช้ทั่วไปข้ามได้ ถ้าผู้ให้บริการตั้งไว้ให้แล้ว</p>
 
       <h3>อัตโนมัติ (ไม่ต้องตั้งค่า)</h3>
@@ -442,26 +546,35 @@ http://hostname:port/xxx</pre></div>
           </tbody>
         </table>
       </div>
+      <p>ถ้าผู้ให้บริการต้องการเปลี่ยน <code>PLTV</code> เป็น <code>TVOD</code> ในลิงก์ย้อนหลัง เปิดได้ที่ <span class="path">Advanced<i>›</i>Laboratory<i>›</i>Replace PLTV with TVOD</span></p>
     </section>
 
-    <!-- 7 -->
+    <!-- 8 -->
     <section id="icloud">
-      <h2><span class="num">07</span>iCloud Sync &amp; Apple TV</h2>
+      <h2><span class="num">08</span>iCloud Sync &amp; Apple TV</h2>
 
-      <h3>เปิด iCloud Sync</h3>
-      <p>ไปที่ <span class="path">การตั้งค่า iPhone<i>›</i>[ชื่อคุณ]<i>›</i>iCloud</span> แล้วเปิดทั้ง <b>APTV</b> และ <b>iCloud Drive</b></p>
+      <div class="with-shot">
+        <div>
+          <h3 style="margin-top:0">เปิด iCloud Sync (ต้องทำ 2 ที่)</h3>
+          <ol class="steps">
+            <li><strong>ในแอป: <span class="path">Setting<i>›</i>iCloud<i>›</i>iCloud Sync</span> เปิดสวิตช์</strong><span><span class="ui">iCloud Status</span> ต้องเปลี่ยนจาก Disabled เป็นเปิดใช้งาน และกด <span class="ui">Manual Sync</span> เพื่อ sync ทันที</span></li>
+            <li><strong>ใน iPhone: <span class="path">Settings<i>›</i>[ชื่อคุณ]<i>›</i>iCloud</span></strong><span>เปิดทั้ง APTV และ iCloud Drive</span></li>
+          </ol>
+        </div>
+        <figure class="shot"><img src="img/10-settings-icloud.jpg" alt="Setting ส่วน iCloud" loading="lazy"><figcaption>สวิตช์ iCloud Sync ในแอป (ภาพนี้ยังปิดอยู่)</figcaption></figure>
+      </div>
 
       <div class="note danger">
-        <b class="label">ทำไมการตั้งค่าหายหมด?</b>
+        <b class="label">ทำไม Config หายหมด?</b>
         ถ้าออกจาก iCloud, สลับบัญชี หรือปิด iCloud ของแอป Apple จะล้างข้อมูลในเครื่อง แต่ข้อมูลบนคลาวด์ยังอยู่ — <b>เปิด iCloud กลับมาแล้วจะ sync คืน</b> ส่วนถ้าไม่เคยเปิด sync เลย การลบแอปจะทำให้ข้อมูลหายถาวร
       </div>
 
       <h3>เช็กลิสต์: sync ข้ามเครื่องไม่ได้</h3>
-      <p>ต้องเป็น APTV รุ่น Premium และกด “กู้คืนการซื้อ” ในทุกเครื่องแล้ว จากนั้นไล่เช็ก:</p>
+      <p>ต้องเป็น APTV Pro และกด “กู้คืนการซื้อ” ในทุกเครื่องแล้ว จากนั้นไล่เช็ก:</p>
       <ul class="check">
         <li>ทุกเครื่องล็อกอิน Apple ID / iCloud เดียวกัน</li>
         <li>เปิด iCloud ของ APTV และ iCloud Drive แล้ว</li>
-        <li>ในแอป <span class="path">ตั้งค่า<i>›</i>สถานะ iCloud</span> ขึ้นว่า “เปิดใช้งาน” ทุกเครื่อง</li>
+        <li>ในแอป <span class="path">Setting<i>›</i>iCloud Status</span> ไม่ใช่ Disabled ทุกเครื่อง</li>
         <li>พื้นที่ iCloud ยังไม่เต็ม</li>
         <li><b>Apple TV: ตั้ง “ผู้ใช้เริ่มต้น” (Default User) ถูกบัญชีแล้ว</b> — สาเหตุอันดับ 1 (ประมาณ 99%) ของการ sync ไม่ได้</li>
         <li>Apple TV: ลองออกจากระบบ iCloud แล้วเข้าใหม่</li>
@@ -473,9 +586,9 @@ http://hostname:port/xxx</pre></div>
       <p><span class="path">Settings<i>›</i>Users and Accounts<i>›</i>Default User</span></p>
     </section>
 
-    <!-- 8 -->
+    <!-- 9 -->
     <section id="restore">
-      <h2><span class="num">08</span>กู้คืนการซื้อ (Restore Purchase) ไม่ได้</h2>
+      <h2><span class="num">09</span>กู้คืนการซื้อ (Restore Purchase) ไม่ได้</h2>
       <p class="lead">แตะหัวข้อที่ตรงกับข้อความ error ที่เห็น</p>
 
       <details>
@@ -484,7 +597,7 @@ http://hostname:port/xxx</pre></div>
           <p><b>1. ล็อกอินผิดบัญชี</b> — บัญชีที่ใช้กู้คืนต้องเป็นบัญชีที่ซื้อ (มักเกิดกับคนมีหลายบัญชีหลายประเทศ) ดูราคาในหน้าซื้อช่วยเดาได้ว่าเป็นบัญชีประเทศไหน ตรวจประวัติการซื้อได้ที่ <a href="https://reportaproblem.apple.com/" target="_blank" rel="noopener">reportaproblem.apple.com</a></p>
           <p><b>2. บัญชีที่ดาวน์โหลดกับบัญชีที่ซื้อไม่ตรงกัน</b> — Apple กำหนดให้ต้องเป็นบัญชีเดียวกัน แก้โดยลบแอป → ล็อกอินบัญชีที่ซื้อ → ดาวน์โหลดใหม่ → กู้คืน (ข้อนี้ไม่ใช้กับ Apple TV ซึ่งต่างบัญชีได้)</p>
           <p><b>3. มีประวัติซื้อแต่ไม่มีประวัติดาวน์โหลด</b> — เช่น ดาวน์โหลดด้วยบัญชี A แต่ซื้อด้วยบัญชี B ให้ลบแอปแล้วดาวน์โหลดใหม่ด้วยบัญชี B</p>
-          <p><b>4. ซื้อแบบเก่า (ก่อน 1 ต.ค. 2022)</b> — ตอนนั้นเป็นแอปเสียเงินก่อนดาวน์โหลด ให้ไปที่ <span class="path">ตั้งค่าในแอป APTV<i>›</i>เกี่ยวกับ APTV<i>›</i>RCID</span> เลือกสร้างใหม่ รอสักครู่แล้วกู้คืน ถ้ายังไม่ได้ให้สร้างใหม่อีกหลายครั้ง</p>
+          <p><b>4. ซื้อแบบเก่า (ก่อน 1 ต.ค. 2022)</b> — ตอนนั้นเป็นแอปเสียเงินก่อนดาวน์โหลด ให้ไปที่ <span class="path">Setting<i>›</i>About APTV<i>›</i>RCID</span> เลือกสร้างใหม่ รอสักครู่แล้วกู้คืน ถ้ายังไม่ได้ให้สร้างใหม่อีกหลายครั้ง</p>
         </div>
       </details>
 
@@ -503,7 +616,7 @@ http://hostname:port/xxx</pre></div>
         <summary>Alias limit reached (พบบ่อยมาก)<span class="err">Error creating subscriber alias. Alias limit reached.</span></summary>
         <div class="body">
           <p>แปลว่าเคยใช้ <b>บัญชีแชร์</b> ดาวน์โหลด/กู้คืนแอป แล้วบัญชีนั้นถูกแบนเพราะกู้คืนบ่อยเกินไป</p>
-          <p>แก้: <span class="path">ตั้งค่าในแอป APTV<i>›</i>เกี่ยวกับ APTV<i>›</i>RCID</span> → สร้าง RCID ใหม่ → รอสักครู่แล้วกู้คืน ถ้ายังไม่ได้ให้ทำซ้ำ</p>
+          <p>แก้: <span class="path">Setting<i>›</i>About APTV<i>›</i>RCID</span> → สร้าง RCID ใหม่ → รอสักครู่แล้วกู้คืน ถ้ายังไม่ได้ให้ทำซ้ำ</p>
         </div>
       </details>
 
@@ -514,30 +627,34 @@ http://hostname:port/xxx</pre></div>
         </div>
       </details>
 
-      <div class="note">
-        <b class="label">RCID อยู่ที่ไหน</b>
-        ในแอป APTV เอง (ไม่ใช่การตั้งค่าของ iPhone): <span class="path">ตั้งค่า<i>›</i>เกี่ยวกับ APTV<i>›</i>RCID</span>
+      <div class="with-shot" style="margin-top:16px">
+        <div class="note" style="margin:0">
+          <b class="label">RCID อยู่ที่ไหน</b>
+          ในแอป APTV (ไม่ใช่การตั้งค่าของ iPhone): <span class="path">Setting<i>›</i>About APTV</span> เลื่อนลงไปที่ส่วน Contact แล้วแตะแถว <span class="ui">RCID</span><br><br>
+          ติดปัญหาอื่น ลองถาม <span class="ui">APTV Technical Support (AI Assistant)</span> ที่บนสุดของหน้า About APTV หรืออีเมล support@aptv.app
+        </div>
+        <figure class="shot"><img src="img/13-about-rcid.jpg" alt="About APTV แถว RCID" loading="lazy"><figcaption>About APTV (เบลอ RCID ไว้)</figcaption></figure>
       </div>
     </section>
 
-    <!-- 9 -->
+    <!-- 10 -->
     <section id="ipv6">
-      <h2><span class="num">09</span>ดูช่อง IPv6</h2>
+      <h2><span class="num">10</span>ดูช่อง IPv6</h2>
       <p class="lead">ช่อง IPv6 มักเร็ว ชัด และเสถียรกว่า เพราะคนใช้น้อย เน็ตมือถือส่วนใหญ่รองรับอยู่แล้ว ปัญหามักอยู่ที่เน็ตบ้าน</p>
 
       <h3>รู้ได้ไงว่าเป็นช่อง IPv6</h3>
-      <p>APTV จะแสดงป้าย <code>IPv6</code> ที่มุมซ้ายล่างของช่อง (ปิดป้ายนี้ได้ในการตั้งค่า)</p>
+      <p>APTV แสดงป้าย <code>IPv6</code> ที่มุมซ้ายล่างของช่อง (ปิดได้ที่ Setting › Show IPV6 ID)</p>
 
       <h3>เช็กว่าเน็ตรองรับไหม</h3>
       <ul>
         <li>เข้า <a href="https://test-ipv6.com/" target="_blank" rel="noopener">test-ipv6.com</a> (ปิด Proxy/VPN ก่อนทดสอบ)</li>
-        <li>ดูท้ายสุดของหน้าตั้งค่าใน APTV จะบอกเครือข่ายที่ใช้อยู่ (อาจไม่แม่นยำ)</li>
+        <li>ท้ายสุดของหน้า Setting จะเขียน <span class="ui">Current network type: IPv4 / IPv6</span> (แตะเพื่อตรวจใหม่ ควรปิด VPN ก่อน)</li>
         <li>วิธีง่ายสุด: ลองเล่นช่อง IPv6 — เล่นได้คือรองรับ</li>
       </ul>
 
       <h3>เปิด IPv6 ที่บ้าน</h3>
       <ol class="steps">
-        <li><strong>เปิด IPv6 ในเราเตอร์</strong><span>ส่วนใหญ่ปิดไว้ตั้งแต่โรงงาน เข้าหน้าแอดมินเราเตอร์ หาเมนู IPv6 แล้วเปิด — ถ้าเราเตอร์เป็นตัวต่อ PPPoE เลือกโหมด Native, ถ้าเราเตอร์ ONU/โมเด็มไฟเบอร์เป็นตัวต่อ ให้เราเตอร์ใช้โหมด NAT6</span></li>
+        <li><strong>เปิด IPv6 ในเราเตอร์</strong><span>ส่วนใหญ่ปิดไว้ตั้งแต่โรงงาน เข้าหน้าแอดมินเราเตอร์ หาเมนู IPv6 แล้วเปิด — ถ้าเราเตอร์เป็นตัวต่อ PPPoE เลือกโหมด Native, ถ้า ONU/โมเด็มไฟเบอร์เป็นตัวต่อ ให้เราเตอร์ใช้โหมด NAT6</span></li>
         <li><strong>ถ้ายังไม่ได้ IPv6 → เปิดที่ ONU/โมเด็มไฟเบอร์</strong><span>ตั้งโหมด IP เป็น “IPv4 &amp; IPv6” บางรุ่นต้องใช้รหัสผู้ดูแลระดับสูง (ไม่ใช่รหัสหลังเครื่อง) ขอได้จากฝ่ายบริการลูกค้าของผู้ให้บริการเน็ต</span></li>
         <li><strong>เปิด IPv6 ในแอป Proxy (ถ้าใช้)</strong><span>ส่วนใหญ่ปิด IPv6 ไว้ เช่น Quantumult X ต้องเปิด “Compatibility Enhancement” ในการตั้งค่าอื่น ๆ</span></li>
       </ol>
@@ -547,34 +664,63 @@ http://hostname:port/xxx</pre></div>
       </div>
     </section>
 
-    <!-- 10 -->
+    <!-- 11 -->
     <section id="faq">
-      <h2><span class="num">10</span>คำถามที่พบบ่อย</h2>
+      <h2><span class="num">11</span>คำถามที่พบบ่อย</h2>
       <details>
         <summary>m3u กับ m3u8 ต่างกันยังไง</summary>
-        <div class="body"><p>ให้นึกถึง “ห้องเรียนกับนักเรียน” — <b>m3u</b> คือรายการหลายช่องรวมกัน (playlist) ส่วน <b>m3u8</b> โดยทั่วไปคือลิงก์สตรีมของช่องเดียว</p></div>
+        <div class="body"><p>ให้นึกถึง “ห้องเรียนกับนักเรียน” — <b>m3u</b> คือรายการหลายช่องรวมกัน (playlist) ส่วน <b>m3u8</b> โดยทั่วไปคือลิงก์สตรีมของช่องเดียว ใช้ Subscribe กับ m3u และใช้ Blank + เพิ่มช่อง กับ m3u8 (<a href="#single">หัวข้อ 03</a>)</p></div>
       </details>
       <details>
-        <summary>มีแค่ลิงก์ m3u8 ช่องเดียว จะเพิ่มยังไง</summary>
+        <summary>ช่องเปิดไม่ขึ้น / หมุนค้าง</summary>
         <div class="body">
-          <ol>
-            <li>ในศูนย์การตั้งค่า เพิ่ม <b>การตั้งค่าแบบว่างเปล่า</b> แล้วกดใช้งาน</li>
-            <li>กลับไปหน้าช่อง แตะ + มุมขวาบน แล้ววางลิงก์ m3u8</li>
-          </ol>
+          <ul>
+            <li>ดูค่า Delay บนการ์ดช่อง ถ้าไม่มีตัวเลขหรือสูงมาก แปลว่าแหล่งต้นทางมีปัญหา</li>
+            <li>ลองเปลี่ยน <span class="ui">Setting › Preferred Player</span></li>
+            <li>ลิงก์ที่ต้องใช้ Header ให้ใส่ใน <span class="ui">Request Parameters</span> ของช่อง</li>
+            <li>ใช้ Merging Config รวมหลายแหล่ง เพื่อให้สลับแหล่งสำรองอัตโนมัติ</li>
+          </ul>
         </div>
       </details>
       <details>
-        <summary>เปิดดูด้วย VLC หรือ Infuse ได้ไหม</summary>
-        <div class="body"><p>ได้ ตั้งแต่เวอร์ชัน 1.1.1 มีตัวเลือกส่งช่องไปเล่นใน VLC หรือ Infuse และเลือกสัดส่วนภาพได้</p></div>
+        <summary>ส่งไปเล่นใน VLC / Infuse หรือขึ้นทีวีได้ไหม</summary>
+        <div class="body"><p>ได้ มีตัวเลือกส่งช่องไปเล่นใน VLC หรือ Infuse และในหน้าเล่นมีปุ่ม AirPlay (ไอคอนจอ) ส่งขึ้น Apple TV / ทีวีที่รองรับ</p></div>
       </details>
       <details>
-        <summary>ต้องใส่ Header พิเศษ (User-Agent / Referer) ให้ลิงก์</summary>
-        <div class="body"><p>มีฟีเจอร์ “Custom Header” อยู่ในเมนูห้องทดลอง (Lab) ในการตั้งค่าของแอป</p></div>
+        <summary>เพิ่มช่องเข้ารายการโปรดยังไง</summary>
+        <div class="body"><p>แตะ ♡ มุมขวาบนในหน้าเล่น แล้วดูได้ที่แท็บ <span class="ui">Favorite</span></p></div>
       </details>
     </section>
 
+    <!-- browser -->
+    <section id="browser">
+      <h2><span class="num">12</span>เปิด YouTube และเว็บวิดีโอด้วย Browser ในแอป</h2>
+      <p class="lead">APTV มีเบราว์เซอร์ในตัว เปิดเว็บวิดีโอ (YouTube, Netflix, TikTok, Bilibili ฯลฯ) ได้จากในแอป</p>
+      <ol class="steps">
+        <li><strong>แท็บ Channel → ปุ่ม ▶ มุมขวาบน (Quick Play) → <span class="ui">Browser</span></strong><span>หน้าแรกมีทางลัด Video Websites (กดค้างเพื่อจัดลำดับ) และ Favorite channels (บุ๊กมาร์ก)</span></li>
+        <li><strong>แตะ <span class="ui">YouTube</span> หรือพิมพ์ URL / คำค้นในช่องด้านล่าง</strong><span>ล็อกอินบัญชี Google ในนี้ได้เหมือนเว็บทั่วไป</span></li>
+        <li><strong>เปิดคลิปแล้วดูบนหน้าเว็บได้เลย</strong></li>
+        <li><strong>ปุ่ม ▶ ข้างช่อง URL = <span class="ui">Video Sources</span></strong><span>แอปจะค้นหาลิงก์วิดีโอในหน้านั้น (ตัวเลขแดงคือจำนวนที่เจอ) ถ้าได้ลิงก์ จะเปิดด้วยเครื่องเล่นของ APTV ได้</span></li>
+        <li><strong>ปุ่ม ⋯ = เมนู More</strong><span>Bookmark This Page, Mobile Website, Website Media Compatibility, Page Zoom, Fullscreen Webpage, History และ Clear History and Website Data (จะออกจากระบบทุกเว็บ แต่เก็บบุ๊กมาร์กไว้)</span></li>
+      </ol>
+      <div class="shots">
+        <figure><img src="img/14-browser-home.jpg" alt="หน้าแรก Browser ในแอป" loading="lazy"><figcaption><b>1</b> หน้าแรก Browser</figcaption></figure>
+        <figure><img src="img/15-browser-youtube.jpg" alt="YouTube ใน Browser" loading="lazy"><figcaption><b>2–3</b> YouTube (เบลอฟีดไว้)</figcaption></figure>
+        <figure><img src="img/16-video-sources.jpg" alt="Video Sources" loading="lazy"><figcaption><b>4</b> Video Sources ของคลิป YouTube</figcaption></figure>
+        <figure><img src="img/17-browser-more.jpg" alt="เมนู More ของ Browser" loading="lazy"><figcaption><b>5</b> เมนู More</figcaption></figure>
+      </div>
+      <div class="note warn">
+        <b class="label">YouTube ส่งเข้าเครื่องเล่น APTV ไม่ได้</b>
+        ทดสอบแล้ว Video Sources เจอคลิป แต่ขึ้นว่า YouTube ไม่ให้ลิงก์สำหรับเล่นแยก (<i>does not expose a playback URL</i>) ต้องดูบนหน้าเว็บเท่านั้น ฟีเจอร์ส่งเข้าเครื่องเล่นจึงใช้ได้กับเว็บที่เปิดลิงก์ m3u8/mp4 ตรง ๆ
+      </div>
+      <div class="note tip">
+        <b class="label">คลิปเล่นไม่ได้ หรือภาพเต็มจอไม่ได้</b>
+        ลอง ⋯ → <span class="ui">Website Media Compatibility</span> หรือ <span class="ui">Fullscreen Webpage</span> ส่วนเว็บที่ใช้บ่อยให้กด ⋯ → Bookmark This Page จะขึ้นในหน้าแรก Browser
+      </div>
+    </section>
+
     <footer>
-      สรุปและแปลจาก <a href="https://docs.aptvapp.com/" target="_blank" rel="noopener">docs.aptvapp.com</a> · ชื่อเมนูในแอปอาจต่างไปตามภาษาที่ตั้งไว้และเวอร์ชันของแอป
+      สรุปและแปลจาก <a href="https://docs.aptvapp.com/" target="_blank" rel="noopener">docs.aptvapp.com</a> · ภาพหน้าจอจาก APTV 1.5.12 (iOS) ภาษา English · ภาพช่องทีวีถูกเบลอไว้
     </footer>
   </main>
 </div>

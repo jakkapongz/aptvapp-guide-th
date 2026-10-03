@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>คู่มือ APTV ภาษาไทย</title>
+<meta name="description" content="สรุปคู่มือใช้งานแอป APTV (IPTV player สำหรับ iPhone, iPad, Apple TV, Mac) ฉบับใช้งานจริง ภาษาไทย">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface-2: #f0f0ec;
+  --text: #1d1d1b;
+  --muted: #64645e;
+  --border: #e2e2dc;
+  --accent: #0a7c66;
+  --accent-soft: #e2f3ee;
+  --warn: #a35c00;
+  --warn-soft: #fff3df;
+  --danger: #b4232a;
+  --danger-soft: #fde8e8;
+  --code-bg: #1e1f22;
+  --code-text: #e6e6e1;
+  --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121312;
+    --surface: #1b1c1b;
+    --surface-2: #242523;
+    --text: #ecece7;
+    --muted: #a0a09a;
+    --border: #30312e;
+    --accent: #3cc3a3;
+    --accent-soft: #15342d;
+    --warn: #f0b04f;
+    --warn-soft: #33270f;
+    --danger: #f2787d;
+    --danger-soft: #3a1a1c;
+    --code-bg: #0c0c0c;
+    --code-text: #e6e6e1;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121312;
+  --surface: #1b1c1b;
+  --surface-2: #242523;
+  --text: #ecece7;
+  --muted: #a0a09a;
+  --border: #30312e;
+  --accent: #3cc3a3;
+  --accent-soft: #15342d;
+  --warn: #f0b04f;
+  --warn-soft: #33270f;
+  --danger: #f2787d;
+  --danger-soft: #3a1a1c;
+  --code-bg: #0c0c0c;
+  --code-text: #e6e6e1;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.75 "IBM Plex Sans Thai", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+code, pre { font-family: "JetBrains Mono", ui-monospace, monospace; }
+:not(pre) > code {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: .88em;
+  overflow-wrap: anywhere;
+}
+
+/* header */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar-inner {
+  max-width: 1120px; margin: 0 auto; padding: 10px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.brand { font-weight: 700; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+.brand-mark {
+  width: 28px; height: 28px; border-radius: 8px; background: var(--accent);
+  display: grid; place-items: center; color: var(--bg); font-size: 13px; font-weight: 700;
+}
+.topbar .spacer { flex: 1; }
+.icon-btn {
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  border-radius: 8px; height: 34px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 14px;
+}
+.menu-btn { display: none; }
+
+/* layout */
+.layout {
+  max-width: 1120px; margin: 0 auto; padding: 0 16px;
+  display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 40px;
+}
+nav.toc {
+  position: sticky; top: 70px; align-self: start;
+  max-height: calc(100vh - 80px); overflow: auto; padding: 24px 0;
+}
+nav.toc ol { list-style: none; margin: 0; padding: 0; }
+nav.toc a {
+  display: block; padding: 6px 12px; border-radius: 8px;
+  color: var(--muted); text-decoration: none; font-size: 15px;
+}
+nav.toc a:hover { background: var(--surface-2); color: var(--text); }
+nav.toc a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+main { padding: 32px 0 80px; min-width: 0; }
+
+.hero h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.25; margin: 0 0 12px; }
+.hero p { color: var(--muted); margin: 0 0 20px; max-width: 62ch; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.pill {
+  font-size: 13px; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--muted);
+}
+
+section { margin-top: 56px; }
+h2 { font-size: 24px; line-height: 1.35; margin: 0 0 8px; display: flex; align-items: baseline; gap: 10px; }
+h2 .num {
+  font-size: 14px; color: var(--accent); background: var(--accent-soft);
+  border-radius: 6px; padding: 0 8px; font-weight: 600; flex: none;
+}
+h3 { font-size: 18px; margin: 28px 0 6px; }
+.lead { color: var(--muted); margin: 0 0 20px; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+}
+
+/* steps */
+ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: s; display: grid; gap: 12px; }
+ol.steps > li {
+  counter-increment: s; position: relative;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px 16px 14px 60px;
+}
+ol.steps > li::before {
+  content: counter(s);
+  position: absolute; left: 16px; top: 14px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--accent); color: var(--bg);
+  display: grid; place-items: center; font-weight: 700; font-size: 15px;
+}
+ol.steps strong { display: block; }
+ol.steps span { color: var(--muted); font-size: 15px; }
+
+/* callouts */
+.note {
+  border-radius: var(--radius); padding: 12px 16px; margin: 16px 0;
+  border: 1px solid var(--border); background: var(--surface-2); font-size: 15px;
+}
+.note.tip { background: var(--accent-soft); border-color: transparent; }
+.note.warn { background: var(--warn-soft); border-color: transparent; }
+.note.danger { background: var(--danger-soft); border-color: transparent; }
+.note b.label { display: block; margin-bottom: 2px; }
+.note.tip b.label { color: var(--accent); }
+.note.warn b.label { color: var(--warn); }
+.note.danger b.label { color: var(--danger); }
+
+/* profile cards */
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.profile h3 { margin: 0 0 2px; display: flex; gap: 8px; align-items: center; }
+.profile .zh { font-size: 13px; color: var(--muted); font-weight: 400; }
+.profile p { margin: 4px 0 0; font-size: 15px; }
+.profile .use { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+/* tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--surface-2); font-weight: 600; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+
+/* code */
+.code {
+  position: relative; margin: 10px 0 16px;
+  background: var(--code-bg); border-radius: 10px;
+}
+.code pre {
+  margin: 0; padding: 14px 16px; padding-right: 72px;
+  color: var(--code-text); font-size: 13px; line-height: 1.6;
+  overflow-x: auto; white-space: pre;
+}
+.copy {
+  position: absolute; top: 8px; right: 8px;
+  font: 500 12px "IBM Plex Sans Thai", sans-serif;
+  background: #ffffff1a; color: #e6e6e1; border: 1px solid #ffffff26;
+  border-radius: 6px; padding: 3px 10px; cursor: pointer;
+}
+.copy:hover { background: #ffffff2e; }
+
+/* accordion */
+details {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  margin-bottom: 10px;
+}
+details > summary {
+  cursor: pointer; padding: 14px 44px 14px 16px; font-weight: 600; list-style: none; position: relative;
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary::after {
+  content: "+"; position: absolute; right: 16px; top: 12px;
+  font-size: 20px; color: var(--muted); font-weight: 400;
+}
+details[open] > summary::after { content: "−"; }
+details > .body { padding: 0 16px 14px; font-size: 15px; }
+details > .body > :first-child { margin-top: 0; }
+summary .err {
+  display: block; font-family: "JetBrains Mono", monospace; font-weight: 400;
+  font-size: 12.5px; color: var(--danger); margin-top: 2px; overflow-wrap: anywhere;
+}
+
+ul.check { padding-left: 0; list-style: none; margin: 8px 0; }
+ul.check li { padding-left: 28px; position: relative; margin: 6px 0; }
+ul.check li::before {
+  content: ""; position: absolute; left: 2px; top: 6px; width: 16px; height: 16px;
+  border: 2px solid var(--accent); border-radius: 4px;
+}
+ul.check li.done::before { background: var(--accent); }
+ul.check li.done::after {
+  content: ""; position: absolute; left: 7px; top: 9px; width: 5px; height: 9px;
+  border: solid var(--bg); border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+
+.path {
+  font-weight: 600; white-space: nowrap;
+}
+.path i { font-style: normal; color: var(--muted); margin: 0 4px; }
+
+footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+
+/* mobile */
+@media (max-width: 860px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .menu-btn { display: inline-block; }
+  nav.toc {
+    position: fixed; top: 55px; left: 0; right: 0; max-height: 70vh;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    padding: 12px 16px; z-index: 9; display: none;
+  }
+  nav.toc.open { display: block; }
+  .grid-2 { grid-template-columns: minmax(0, 1fr); }
+  .path { white-space: normal; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top"><span class="brand-mark">TV</span>คู่มือ APTV</a>
+    <span class="spacer"></span>
+    <button class="icon-btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="toc">สารบัญ</button>
+    <button class="icon-btn" id="themeBtn" aria-label="สลับธีม">◐</button>
+  </div>
+</header>
+
+<div class="layout" id="top">
+  <nav class="toc" id="toc" aria-label="สารบัญ">
+    <ol>
+      <li><a href="#start">เริ่มต้นใช้งาน</a></li>
+      <li><a href="#profiles">ประเภทการตั้งค่า</a></li>
+      <li><a href="#subscription">ตั้งค่าแบบลิงก์</a></li>
+      <li><a href="#aggregate">รวมหลายแหล่ง</a></li>
+      <li><a href="#mac">ทริคบน Mac</a></li>
+      <li><a href="#catchup">ดูย้อนหลัง</a></li>
+      <li><a href="#icloud">iCloud &amp; Apple TV</a></li>
+      <li><a href="#restore">กู้คืนการซื้อ</a></li>
+      <li><a href="#ipv6">ช่อง IPv6</a></li>
+      <li><a href="#faq">คำถามที่พบบ่อย</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <div class="pills">
+        <span class="pill">iPhone / iPad</span>
+        <span class="pill">Apple TV</span>
+        <span class="pill">Mac</span>
+        <span class="pill">Apple Watch</span>
+      </div>
+      <h1>คู่มือ APTV ฉบับใช้งานจริง</h1>
+      <p>APTV เป็นแอปเล่น IPTV (ไฟล์ m3u / txt) บนอุปกรณ์ Apple ทุกเครื่อง หน้านี้สรุปจาก <a href="https://docs.aptvapp.com/" target="_blank" rel="noopener">คู่มือทางการ (ภาษาจีน)</a> เหลือแต่สิ่งที่ต้องรู้จริง ตั้งแต่เพิ่มช่องครั้งแรกไปจนถึงแก้ปัญหาที่เจอบ่อย</p>
+    </div>
+
+    <div class="note tip">
+      <b class="label">ทุกแพลตฟอร์มใช้เหมือนกัน</b>
+      iOS, tvOS (Apple TV) และ macOS มีขั้นตอนการใช้งานเหมือนกันทุกอย่าง เรียนรู้ครั้งเดียวใช้ได้ทุกเครื่อง
+    </div>
+
+    <!-- 1 -->
+    <section id="start">
+      <h2><span class="num">01</span>เริ่มต้นใช้งานใน 6 ขั้นตอน</h2>
+      <p class="lead">หลักการคือ “เพิ่มการตั้งค่า (Profile) → เลือกใช้งาน → ไปหน้าช่อง”</p>
+      <ol class="steps">
+        <li><strong>แตะแท็บ “การตั้งค่า” (配置) ที่แถบด้านล่าง</strong><span>เข้าสู่ศูนย์การตั้งค่า (Profile Center)</span></li>
+        <li><strong>แตะปุ่ม + มุมขวาบน</strong><span>เพื่อเพิ่มการตั้งค่าใหม่</span></li>
+        <li><strong>เลือก “การตั้งค่าแบบลิงก์” (Subscription) แล้ววางลิงก์ m3u/txt</strong><span>ใส่ลิงก์ก่อน แล้วค่อยใส่ชื่อ — ถ้าอยากลองก่อน ใช้ลิงก์สาธิต <code>https://pastebin.com/raw/40MQLfcA</code> (ไม่มีช่องจริง ใช้สำหรับฝึกเท่านั้น)</span></li>
+        <li><strong>แตะการตั้งค่าที่เพิ่งเพิ่ม ให้มีเครื่องหมายสีเขียวด้านขวา</strong><span>เครื่องหมายเขียว = การตั้งค่าที่กำลังใช้งานอยู่</span></li>
+        <li><strong>แตะแท็บ “ช่อง” (频道) ด้านล่าง</strong><span>จะเห็นรายการช่องจากแหล่งที่เพิ่มไว้</span></li>
+        <li><strong>แตะช่องเพื่อเล่น</strong><span>เสร็จแล้ว</span></li>
+      </ol>
+      <div class="note warn">
+        <b class="label">ห้ามลืม: เปิด iCloud Sync ตั้งแต่วันแรก</b>
+        ถ้าไม่เปิด แล้วลบ/ติดตั้งแอปใหม่ การตั้งค่าทั้งหมดจะหายและกู้คืนไม่ได้ — ดูวิธีที่ <a href="#icloud">หัวข้อ iCloud</a>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section id="profiles">
+      <h2><span class="num">02</span>ประเภทการตั้งค่า เลือกแบบไหนดี</h2>
+      <p class="lead">APTV มีการตั้งค่า 4 แบบ เลือกตามสิ่งที่คุณมีอยู่ในมือ</p>
+      <div class="grid-2">
+        <div class="card profile">
+          <h3>แบบลิงก์ <span class="zh">订阅配置 · Subscription</span></h3>
+          <p>วางลิงก์ m3u หรือ txt จากผู้ให้บริการ อัปเดตตามต้นทางได้อัตโนมัติ</p>
+          <p class="use">ใช้เมื่อ: ได้ลิงก์ playlist มา (กรณีที่พบบ่อยที่สุด)</p>
+        </div>
+        <div class="card profile">
+          <h3>แบบไฟล์ในเครื่อง <span class="zh">本地配置 · Local</span></h3>
+          <p>เลือกไฟล์ m3u/txt จากเครื่องหรือ iCloud Drive หรือกด “แชร์ → เปิดด้วย APTV” จากแอปอื่น</p>
+          <p class="use">ใช้เมื่อ: มีไฟล์ playlist อยู่แล้ว</p>
+        </div>
+        <div class="card profile">
+          <h3>แบบว่างเปล่า <span class="zh">空白配置 · Blank</span></h3>
+          <p>กล่องเปล่าไม่มีช่อง สร้างแล้วกด “ใช้งาน” จากนั้นกลับไปหน้าช่อง แตะปุ่มแรกมุมขวาบนเพื่อเพิ่มช่องทีละช่อง</p>
+          <p class="use">ใช้เมื่อ: มีแค่ลิงก์ช่องเดียว (m3u8)</p>
+        </div>
+        <div class="card profile">
+          <h3>แบบรวม <span class="zh">聚合配置 · Aggregate</span></h3>
+          <p>รวมหลายการตั้งค่าเป็นอันเดียว ช่องชื่อเดียวกันจะถูกรวม และสลับไปแหล่งสำรองให้อัตโนมัติถ้าเล่นไม่ได้</p>
+          <p class="use">ใช้เมื่อ: มีหลายแหล่งและอยากได้ช่องที่ “ไม่ค่อยดับ”</p>
+        </div>
+      </div>
+      <div class="note">
+        <b class="label">เพิ่มไฟล์ในเครื่องแล้วไม่ขึ้นในรายการ?</b>
+        ปัดปิดแอป (ปัดขึ้นจาก App Switcher) แล้วเปิดใหม่
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section id="subscription">
+      <h2><span class="num">03</span>ช่องต่าง ๆ ในการตั้งค่าแบบลิงก์</h2>
+      <p class="lead">กรอกแค่ลิงก์ก็ใช้ได้ ที่เหลือเป็นตัวเลือกเสริม</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ช่อง</th><th>ใส่อะไร</th><th>คำแนะนำ</th></tr></thead>
+          <tbody>
+            <tr><td>ลิงก์การตั้งค่า</td><td>ลิงก์ m3u หรือ txt</td><td>ต้องเป็น <b>ลิงก์ตรงไปที่ไฟล์</b> ไม่ใช่ลิงก์หน้าเว็บ (เช่น Pastebin ต้องใช้ลิงก์ <code>/raw/</code>)</td></tr>
+            <tr><td>ชื่อ</td><td>ตั้งเองได้</td><td>เว้นว่างได้ ค่าเริ่มต้นคือ <code>Default</code></td></tr>
+            <tr><td>ลิงก์ผังรายการ (EPG)</td><td>ลิงก์ XML (XMLTV) หรือ API แบบ DIYP</td><td>ใส่เพื่อดูว่าตอนนี้/ต่อไปฉายอะไร</td></tr>
+            <tr><td>รีเฟรชการตั้งค่าอัตโนมัติ</td><td>เปิด/ปิด</td><td>เมื่อเปิดแอป ถ้าไม่ได้อัปเดตเกิน 8 ชั่วโมงจะดึงใหม่เอง — แนะนำให้เปิดถ้าต้นทางเปลี่ยนบ่อย</td></tr>
+            <tr><td>รีเฟรชภาพตัวอย่างอัตโนมัติ</td><td>เปิด/ปิด</td><td>รีเฟรชภาพพรีวิวในรายการช่องทุกครั้งที่เปิดแอป</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section id="aggregate">
+      <h2><span class="num">04</span>รวมหลายแหล่ง (Aggregate) ให้ช่องไม่ดับ</h2>
+      <ol class="steps">
+        <li><strong>ศูนย์การตั้งค่า → + → เลือก “การตั้งค่าแบบรวม”</strong></li>
+        <li><strong>เลือกการตั้งค่าที่จะรวมอย่างน้อย 1 อัน</strong><span>ลำดับที่แตะเลือก = ลำดับความสำคัญของแหล่ง (แหล่งแรกเล่นก่อน)</span></li>
+        <li><strong>ดูรายการช่อง</strong><span>ค่าเริ่มต้นจะไม่แบ่งหมวดหมู่ มุมขวาบนของแต่ละช่องจะบอกจำนวนแหล่งสำรอง</span></li>
+        <li><strong>เล่นช่อง</strong><span>ถ้าแหล่งปัจจุบันเล่นไม่ได้ จะสลับไปแหล่งถัดไปเอง</span></li>
+      </ol>
+      <div class="note tip">
+        <b class="label">ปรับเวลารอก่อนสลับแหล่ง</b>
+        ค่าเริ่มต้น 5 วินาที ปรับได้ที่ <span class="path">ตั้งค่า<i>›</i>ตั้งค่าขั้นสูง<i>›</i>เวลาหมดเวลาการเล่น</span>
+      </div>
+      <p>เคล็ดลับ: ชื่อช่องต้องตรงกันทุกตัวอักษร ถึงจะถูกรวมเป็นช่องเดียว ถ้าแหล่งหนึ่งชื่อ <code>Thai PBS</code> อีกแหล่งชื่อ <code>ThaiPBS HD</code> จะไม่ถูกรวม</p>
+    </section>
+
+    <!-- 5 -->
+    <section id="mac">
+      <h2><span class="num">05</span>ทริคบน Mac</h2>
+      <div class="grid-2">
+        <div class="card"><b>เพิ่มไฟล์แบบลากวาง</b><p style="margin:4px 0 0;font-size:15px">ลากไฟล์ m3u/txt จาก Finder มาวางในศูนย์การตั้งค่าได้เลย</p></div>
+        <div class="card"><b>เพิ่มลิงก์จากคลิปบอร์ด</b><p style="margin:4px 0 0;font-size:15px">คัดลอกลิงก์ไว้ แล้วกดวาง (⌘V) ในศูนย์การตั้งค่า ระบบจะเพิ่มให้ทันที</p></div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section id="catchup">
+      <h2><span class="num">06</span>ดูย้อนหลัง (Catch-up)</h2>
+      <p class="lead">สำหรับคนที่แก้ไฟล์ m3u เอง — ผู้ใช้ทั่วไปข้ามได้ ถ้าผู้ให้บริการตั้งไว้ให้แล้ว</p>
+
+      <h3>อัตโนมัติ (ไม่ต้องตั้งค่า)</h3>
+      <p>ถ้าลิงก์ช่องมีคำว่า <code>PLTV</code> หรือ <code>TVOD</code> APTV จะต่อพารามิเตอร์นี้ให้เอง</p>
+      <div class="code"><pre>?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}</pre></div>
+
+      <h3>ตั้งค่าทั้งไฟล์</h3>
+      <p>ใส่ในบรรทัด <code>#EXTM3U</code> บนสุด ใช้กับทุกช่อง</p>
+      <div class="code"><pre>#EXTM3U catchup="append" catchup-source="?playbackbegin=${(b)yyyyMMddHHmmss}&amp;playbackend=${(e)yyyyMMddHHmmss}"</pre></div>
+
+      <h3>ตั้งค่าเฉพาะช่อง (ต่อท้ายลิงก์เดิม)</h3>
+      <div class="code"><pre>#EXTINF:-1 catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}",CCTV1
+http://hostname:port/xxx</pre></div>
+
+      <h3>ตั้งลิงก์ย้อนหลังแยกต่างหาก</h3>
+      <p>ใช้ <code>catchup="default"</code> แล้วใส่ลิงก์เต็มของเซิร์ฟเวอร์ย้อนหลัง</p>
+      <div class="code"><pre>#EXTINF:-1 catchup="default" catchup-source="http://hostname:port/xxx2?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}",CCTV1
+http://hostname:port/xxx</pre></div>
+
+      <h3>ใช้เวลาแบบ UTC</h3>
+      <div class="code"><pre>#EXTINF:-1 catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss:utc}-${(e)yyyyMMddHHmmss:utc}",CCTV1
+http://hostname:port/xxx</pre></div>
+      <p>หรือรูปแบบสั้น</p>
+      <div class="code"><pre>#EXTINF:-1 catchup="append" catchup-source="?playseek={utc:YmdHMS}-{utcend:YmdHMS}",CCTV1
+http://hostname:port/xxx</pre></div>
+
+      <h3>ใช้ Timestamp</h3>
+      <div class="code"><pre>#EXTM3U catchup="append" catchup-source="?starttime=${(b)timestamp}&amp;endtime=${(e)timestamp}"
+http://hostname:port/xxx</pre></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ตัวแปร</th><th>ความหมาย</th></tr></thead>
+          <tbody>
+            <tr><td><code>${(b)…}</code> / <code>${(e)…}</code></td><td>เวลาเริ่ม / เวลาจบ ของรายการที่เลือก</td></tr>
+            <tr><td><code>yyyyMMddHHmmss</code></td><td>รูปแบบวันเวลา เช่น 20261003203000</td></tr>
+            <tr><td><code>:utc</code></td><td>แปลงเป็นเวลา UTC (ไทย = UTC+7)</td></tr>
+            <tr><td><code>timestamp</code></td><td>Unix timestamp (วินาที)</td></tr>
+            <tr><td><code>append</code> / <code>default</code></td><td>ต่อท้ายลิงก์ช่องเดิม / ใช้ลิงก์ที่กำหนดแทนทั้งหมด</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section id="icloud">
+      <h2><span class="num">07</span>iCloud Sync &amp; Apple TV</h2>
+
+      <h3>เปิด iCloud Sync</h3>
+      <p>ไปที่ <span class="path">การตั้งค่า iPhone<i>›</i>[ชื่อคุณ]<i>›</i>iCloud</span> แล้วเปิดทั้ง <b>APTV</b> และ <b>iCloud Drive</b></p>
+
+      <div class="note danger">
+        <b class="label">ทำไมการตั้งค่าหายหมด?</b>
+        ถ้าออกจาก iCloud, สลับบัญชี หรือปิด iCloud ของแอป Apple จะล้างข้อมูลในเครื่อง แต่ข้อมูลบนคลาวด์ยังอยู่ — <b>เปิด iCloud กลับมาแล้วจะ sync คืน</b> ส่วนถ้าไม่เคยเปิด sync เลย การลบแอปจะทำให้ข้อมูลหายถาวร
+      </div>
+
+      <h3>เช็กลิสต์: sync ข้ามเครื่องไม่ได้</h3>
+      <p>ต้องเป็น APTV รุ่น Premium และกด “กู้คืนการซื้อ” ในทุกเครื่องแล้ว จากนั้นไล่เช็ก:</p>
+      <ul class="check">
+        <li>ทุกเครื่องล็อกอิน Apple ID / iCloud เดียวกัน</li>
+        <li>เปิด iCloud ของ APTV และ iCloud Drive แล้ว</li>
+        <li>ในแอป <span class="path">ตั้งค่า<i>›</i>สถานะ iCloud</span> ขึ้นว่า “เปิดใช้งาน” ทุกเครื่อง</li>
+        <li>พื้นที่ iCloud ยังไม่เต็ม</li>
+        <li><b>Apple TV: ตั้ง “ผู้ใช้เริ่มต้น” (Default User) ถูกบัญชีแล้ว</b> — สาเหตุอันดับ 1 (ประมาณ 99%) ของการ sync ไม่ได้</li>
+        <li>Apple TV: ลองออกจากระบบ iCloud แล้วเข้าใหม่</li>
+        <li>Apple TV: ถอดปลั๊กไฟแล้วเสียบใหม่ (ไม่ใช่แค่ Restart จากเมนู)</li>
+      </ul>
+
+      <h3>ตั้งผู้ใช้เริ่มต้นบน Apple TV</h3>
+      <p>การ “สลับผู้ใช้ปัจจุบัน” <b>ไม่ใช่</b> การตั้งผู้ใช้เริ่มต้น ต้องไปตั้งที่</p>
+      <p><span class="path">Settings<i>›</i>Users and Accounts<i>›</i>Default User</span></p>
+    </section>
+
+    <!-- 8 -->
+    <section id="restore">
+      <h2><span class="num">08</span>กู้คืนการซื้อ (Restore Purchase) ไม่ได้</h2>
+      <p class="lead">แตะหัวข้อที่ตรงกับข้อความ error ที่เห็น</p>
+
+      <details>
+        <summary>ไม่พบหลักฐานการซื้อ<span class="err">未获取到您的购买凭据</span></summary>
+        <div class="body">
+          <p><b>1. ล็อกอินผิดบัญชี</b> — บัญชีที่ใช้กู้คืนต้องเป็นบัญชีที่ซื้อ (มักเกิดกับคนมีหลายบัญชีหลายประเทศ) ดูราคาในหน้าซื้อช่วยเดาได้ว่าเป็นบัญชีประเทศไหน ตรวจประวัติการซื้อได้ที่ <a href="https://reportaproblem.apple.com/" target="_blank" rel="noopener">reportaproblem.apple.com</a></p>
+          <p><b>2. บัญชีที่ดาวน์โหลดกับบัญชีที่ซื้อไม่ตรงกัน</b> — Apple กำหนดให้ต้องเป็นบัญชีเดียวกัน แก้โดยลบแอป → ล็อกอินบัญชีที่ซื้อ → ดาวน์โหลดใหม่ → กู้คืน (ข้อนี้ไม่ใช้กับ Apple TV ซึ่งต่างบัญชีได้)</p>
+          <p><b>3. มีประวัติซื้อแต่ไม่มีประวัติดาวน์โหลด</b> — เช่น ดาวน์โหลดด้วยบัญชี A แต่ซื้อด้วยบัญชี B ให้ลบแอปแล้วดาวน์โหลดใหม่ด้วยบัญชี B</p>
+          <p><b>4. ซื้อแบบเก่า (ก่อน 1 ต.ค. 2022)</b> — ตอนนั้นเป็นแอปเสียเงินก่อนดาวน์โหลด ให้ไปที่ <span class="path">ตั้งค่าในแอป APTV<i>›</i>เกี่ยวกับ APTV<i>›</i>RCID</span> เลือกสร้างใหม่ รอสักครู่แล้วกู้คืน ถ้ายังไม่ได้ให้สร้างใหม่อีกหลายครั้ง</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>คำขอไม่น่าเชื่อถือ (MitM)<span class="err">无法信任的请求</span></summary>
+        <div class="body">
+          <p>แอป Proxy/VPN ของคุณกำลัง MitM โดเมน <code>api.revenuecat.com</code> (มักเกิดจากสคริปต์ปลดล็อก) แก้ได้ 2 ทาง:</p>
+          <ul>
+            <li>ยกเว้นโดเมนนี้ใน MitM เช่น Quantumult X ใส่ <code>-api.revenuecat.com</code> ในรายการ hostname</li>
+            <li>หรือปิด Proxy → เปิด APTV ให้กู้คืนเอง → แล้วค่อยเปิด Proxy กลับ</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Alias limit reached (พบบ่อยมาก)<span class="err">Error creating subscriber alias. Alias limit reached.</span></summary>
+        <div class="body">
+          <p>แปลว่าเคยใช้ <b>บัญชีแชร์</b> ดาวน์โหลด/กู้คืนแอป แล้วบัญชีนั้นถูกแบนเพราะกู้คืนบ่อยเกินไป</p>
+          <p>แก้: <span class="path">ตั้งค่าในแอป APTV<i>›</i>เกี่ยวกับ APTV<i>›</i>RCID</span> → สร้าง RCID ใหม่ → รอสักครู่แล้วกู้คืน ถ้ายังไม่ได้ให้ทำซ้ำ</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>เกิดข้อผิดพลาดเครือข่าย / SSL<span class="err">A network error has occurred.</span></summary>
+        <div class="body">
+          <p>ปัญหาเน็ต — ถ้าเปิด VPN อยู่ให้ปิด ถ้าไม่ได้เปิดลองเปิดดู หรือรีสตาร์ตเครื่อง</p>
+        </div>
+      </details>
+
+      <div class="note">
+        <b class="label">RCID อยู่ที่ไหน</b>
+        ในแอป APTV เอง (ไม่ใช่การตั้งค่าของ iPhone): <span class="path">ตั้งค่า<i>›</i>เกี่ยวกับ APTV<i>›</i>RCID</span>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section id="ipv6">
+      <h2><span class="num">09</span>ดูช่อง IPv6</h2>
+      <p class="lead">ช่อง IPv6 มักเร็ว ชัด และเสถียรกว่า เพราะคนใช้น้อย เน็ตมือถือส่วนใหญ่รองรับอยู่แล้ว ปัญหามักอยู่ที่เน็ตบ้าน</p>
+
+      <h3>รู้ได้ไงว่าเป็นช่อง IPv6</h3>
+      <p>APTV จะแสดงป้าย <code>IPv6</code> ที่มุมซ้ายล่างของช่อง (ปิดป้ายนี้ได้ในการตั้งค่า)</p>
+
+      <h3>เช็กว่าเน็ตรองรับไหม</h3>
+      <ul>
+        <li>เข้า <a href="https://test-ipv6.com/" target="_blank" rel="noopener">test-ipv6.com</a> (ปิด Proxy/VPN ก่อนทดสอบ)</li>
+        <li>ดูท้ายสุดของหน้าตั้งค่าใน APTV จะบอกเครือข่ายที่ใช้อยู่ (อาจไม่แม่นยำ)</li>
+        <li>วิธีง่ายสุด: ลองเล่นช่อง IPv6 — เล่นได้คือรองรับ</li>
+      </ul>
+
+      <h3>เปิด IPv6 ที่บ้าน</h3>
+      <ol class="steps">
+        <li><strong>เปิด IPv6 ในเราเตอร์</strong><span>ส่วนใหญ่ปิดไว้ตั้งแต่โรงงาน เข้าหน้าแอดมินเราเตอร์ หาเมนู IPv6 แล้วเปิด — ถ้าเราเตอร์เป็นตัวต่อ PPPoE เลือกโหมด Native, ถ้าเราเตอร์ ONU/โมเด็มไฟเบอร์เป็นตัวต่อ ให้เราเตอร์ใช้โหมด NAT6</span></li>
+        <li><strong>ถ้ายังไม่ได้ IPv6 → เปิดที่ ONU/โมเด็มไฟเบอร์</strong><span>ตั้งโหมด IP เป็น “IPv4 &amp; IPv6” บางรุ่นต้องใช้รหัสผู้ดูแลระดับสูง (ไม่ใช่รหัสหลังเครื่อง) ขอได้จากฝ่ายบริการลูกค้าของผู้ให้บริการเน็ต</span></li>
+        <li><strong>เปิด IPv6 ในแอป Proxy (ถ้าใช้)</strong><span>ส่วนใหญ่ปิด IPv6 ไว้ เช่น Quantumult X ต้องเปิด “Compatibility Enhancement” ในการตั้งค่าอื่น ๆ</span></li>
+      </ol>
+      <div class="note">
+        <b class="label">เคยดูได้ แต่จู่ ๆ ดูไม่ได้</b>
+        รีสตาร์ตเราเตอร์หรือโทรศัพท์ และตรวจว่าแอป Proxy ไม่ได้ปิด IPv6
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section id="faq">
+      <h2><span class="num">10</span>คำถามที่พบบ่อย</h2>
+      <details>
+        <summary>m3u กับ m3u8 ต่างกันยังไง</summary>
+        <div class="body"><p>ให้นึกถึง “ห้องเรียนกับนักเรียน” — <b>m3u</b> คือรายการหลายช่องรวมกัน (playlist) ส่วน <b>m3u8</b> โดยทั่วไปคือลิงก์สตรีมของช่องเดียว</p></div>
+      </details>
+      <details>
+        <summary>มีแค่ลิงก์ m3u8 ช่องเดียว จะเพิ่มยังไง</summary>
+        <div class="body">
+          <ol>
+            <li>ในศูนย์การตั้งค่า เพิ่ม <b>การตั้งค่าแบบว่างเปล่า</b> แล้วกดใช้งาน</li>
+            <li>กลับไปหน้าช่อง แตะ + มุมขวาบน แล้ววางลิงก์ m3u8</li>
+          </ol>
+        </div>
+      </details>
+      <details>
+        <summary>เปิดดูด้วย VLC หรือ Infuse ได้ไหม</summary>
+        <div class="body"><p>ได้ ตั้งแต่เวอร์ชัน 1.1.1 มีตัวเลือกส่งช่องไปเล่นใน VLC หรือ Infuse และเลือกสัดส่วนภาพได้</p></div>
+      </details>
+      <details>
+        <summary>ต้องใส่ Header พิเศษ (User-Agent / Referer) ให้ลิงก์</summary>
+        <div class="body"><p>มีฟีเจอร์ “Custom Header” อยู่ในเมนูห้องทดลอง (Lab) ในการตั้งค่าของแอป</p></div>
+      </details>
+    </section>
+
+    <footer>
+      สรุปและแปลจาก <a href="https://docs.aptvapp.com/" target="_blank" rel="noopener">docs.aptvapp.com</a> · ชื่อเมนูในแอปอาจต่างไปตามภาษาที่ตั้งไว้และเวอร์ชันของแอป
+    </footer>
+  </main>
+</div>
+
+<script>
+// copy buttons
+document.querySelectorAll('.code').forEach(function (box) {
+  var btn = document.createElement('button');
+  btn.className = 'copy';
+  btn.type = 'button';
+  btn.textContent = 'คัดลอก';
+  btn.addEventListener('click', function () {
+    var text = box.querySelector('pre').innerText;
+    var done = function () {
+      btn.textContent = 'คัดลอกแล้ว';
+      setTimeout(function () { btn.textContent = 'คัดลอก'; }, 1500);
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
+  });
+  box.appendChild(btn);
+});
+
+// theme toggle
+var root = document.documentElement;
+try { var saved = localStorage.getItem('aptv-theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+document.getElementById('themeBtn').addEventListener('click', function () {
+  var dark = root.dataset.theme
+    ? root.dataset.theme === 'dark'
+    : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+  try { localStorage.setItem('aptv-theme', root.dataset.theme); } catch (e) {}
+});
+
+// mobile menu
+var toc = document.getElementById('toc');
+var menuBtn = document.getElementById('menuBtn');
+menuBtn.addEventListener('click', function () {
+  var open = toc.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open);
+});
+toc.addEventListener('click', function (e) {
+  if (e.target.tagName === 'A') { toc.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); }
+});
+
+// active section highlight
+var links = Array.prototype.slice.call(toc.querySelectorAll('a'));
+var observer = new IntersectionObserver(function (entries) {
+  entries.forEach(function (en) {
+    if (en.isIntersecting) {
+      links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id); });
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+document.querySelectorAll('main section').forEach(function (s) { observer.observe(s); });
+</script>
+</body>
+</html>

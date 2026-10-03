@@ -2,779 +2,849 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>คู่มือ APTV ภาษาไทย</title>
-<meta name="description" content="สรุปคู่มือใช้งานแอป APTV (IPTV player สำหรับ iPhone, iPad, Apple TV, Mac) ฉบับใช้งานจริง ภาษาไทย">
+<meta name="description" content="คู่มือใช้งานแอป APTV ภาษาไทย จัดเมนูเหมือนในแอป — Channel, Favorite, Config, Setting พร้อมภาพหน้าจอจริง">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #f7f7f5;
-  --surface: #ffffff;
-  --surface-2: #f0f0ec;
-  --text: #1d1d1b;
-  --muted: #64645e;
-  --border: #e2e2dc;
-  --accent: #0a7c66;
-  --accent-soft: #e2f3ee;
-  --warn: #a35c00;
-  --warn-soft: #fff3df;
-  --danger: #b4232a;
-  --danger-soft: #fde8e8;
-  --code-bg: #1e1f22;
-  --code-text: #e6e6e1;
-  --radius: 12px;
+  --bg: #f2f2f7;
+  --card: #ffffff;
+  --fill: #e9e9ee;
+  --text: #111113;
+  --muted: #8a8a8f;
+  --sep: #dcdce1;
+  --accent: #e8505b;
+  --accent-soft: #fde8ea;
+  --warn: #9a5b00;
+  --warn-soft: #fff4e0;
+  --ok: #1f8a4c;
+  --ok-soft: #e3f5ea;
+  --code-bg: #1c1c1e;
+  --bar: rgb(255 255 255 / .82);
+  --shadow: 0 4px 24px rgb(0 0 0 / .08);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #121312;
-    --surface: #1b1c1b;
-    --surface-2: #242523;
-    --text: #ecece7;
-    --muted: #a0a09a;
-    --border: #30312e;
-    --accent: #3cc3a3;
-    --accent-soft: #15342d;
-    --warn: #f0b04f;
-    --warn-soft: #33270f;
-    --danger: #f2787d;
-    --danger-soft: #3a1a1c;
-    --code-bg: #0c0c0c;
-    --code-text: #e6e6e1;
+    --bg: #000000; --card: #1c1c1e; --fill: #2c2c2e; --text: #f2f2f7; --muted: #98989f;
+    --sep: #38383a; --accent: #ff6670; --accent-soft: #3a1c20; --warn: #f2b14f; --warn-soft: #33270f;
+    --ok: #4cd282; --ok-soft: #12301f; --code-bg: #111; --bar: rgb(28 28 30 / .82); --shadow: 0 4px 24px rgb(0 0 0 / .5);
   }
 }
 :root[data-theme="dark"] {
-  --bg: #121312;
-  --surface: #1b1c1b;
-  --surface-2: #242523;
-  --text: #ecece7;
-  --muted: #a0a09a;
-  --border: #30312e;
-  --accent: #3cc3a3;
-  --accent-soft: #15342d;
-  --warn: #f0b04f;
-  --warn-soft: #33270f;
-  --danger: #f2787d;
-  --danger-soft: #3a1a1c;
-  --code-bg: #0c0c0c;
-  --code-text: #e6e6e1;
+  --bg: #000000; --card: #1c1c1e; --fill: #2c2c2e; --text: #f2f2f7; --muted: #98989f;
+  --sep: #38383a; --accent: #ff6670; --accent-soft: #3a1c20; --warn: #f2b14f; --warn-soft: #33270f;
+  --ok: #4cd282; --ok-soft: #12301f; --code-bg: #111; --bar: rgb(28 28 30 / .82); --shadow: 0 4px 24px rgb(0 0 0 / .5);
 }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; }
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font: 16px/1.75 "IBM Plex Sans Thai", system-ui, -apple-system, sans-serif;
+  background: var(--bg); color: var(--text);
+  font: 16px/1.65 "IBM Plex Sans Thai", -apple-system, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 a { color: var(--accent); }
-code, pre { font-family: "JetBrains Mono", ui-monospace, monospace; }
-:not(pre) > code {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1px 6px;
-  font-size: .88em;
-  overflow-wrap: anywhere;
+code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .86em; background: var(--fill); border-radius: 6px; padding: 1px 6px; overflow-wrap: anywhere; }
+svg.i { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; vertical-align: -.12em; }
+
+.app { max-width: 560px; margin: 0 auto; min-height: 100vh; padding-bottom: calc(110px + env(safe-area-inset-bottom)); }
+
+/* top nav */
+.topnav {
+  position: sticky; top: 0; z-index: 20; height: 52px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 12px;
+  background: var(--bar); backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border-bottom: 1px solid transparent; transition: border-color .2s;
+}
+.topnav.scrolled { border-bottom-color: var(--sep); }
+.topnav .title { font-weight: 600; font-size: 16px; opacity: 0; transition: opacity .2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 56vw; }
+.topnav.scrolled .title, .topnav.detail .title { opacity: 1; }
+.circle {
+  width: 38px; height: 38px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--card); color: var(--text); box-shadow: var(--shadow);
+  display: grid; place-items: center; font-size: 22px; line-height: 1; padding: 0 0 2px;
+}
+.back { visibility: hidden; justify-self: start; }
+.topnav.detail .back { visibility: visible; }
+.theme { justify-self: end; font-size: 16px; padding: 0; }
+
+/* pages */
+.page { display: none; padding: 0 16px; }
+.page.active { display: block; animation: fade .18s ease; }
+.page.active.push { animation: push .26s cubic-bezier(.2,.8,.2,1); }
+@keyframes fade { from { opacity: 0; } }
+@keyframes push { from { opacity: 0; transform: translateX(28px); } }
+.large { font-size: 32px; font-weight: 700; line-height: 1.2; margin: 6px 4px 2px; letter-spacing: -.01em; }
+.sub { color: var(--muted); margin: 0 4px 18px; font-size: 15px; }
+.crumb {
+  display: inline-flex; flex-wrap: wrap; align-items: center; gap: 5px;
+  font-size: 12.5px; color: var(--muted); margin: 8px 4px 0;
+  background: var(--card); border-radius: 999px; padding: 3px 12px;
+}
+.crumb b { color: var(--accent); font-weight: 600; }
+.crumb .sepr { opacity: .6; }
+
+/* grouped list */
+.group-h { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .02em; margin: 22px 16px 6px; }
+.group { background: var(--card); border-radius: 14px; overflow: hidden; }
+.group-f { font-size: 13px; color: var(--muted); margin: 6px 16px 0; line-height: 1.5; }
+.row {
+  display: flex; align-items: center; gap: 12px; padding: 11px 14px; min-height: 52px;
+  color: var(--text); text-decoration: none; position: relative;
+}
+a.row { cursor: pointer; }
+.row + .row::before { content: ""; position: absolute; top: 0; left: 56px; right: 0; border-top: 1px solid var(--sep); }
+a.row:active { background: var(--fill); }
+.ic { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; color: #fff; background: var(--c, var(--accent)); font-size: 17px; flex: none; }
+.row .t { flex: 1; min-width: 0; line-height: 1.35; }
+.row .t small { display: block; color: var(--muted); font-size: 13px; margin-top: 1px; }
+.row .v { color: var(--muted); font-size: 14px; white-space: nowrap; }
+.row .chev { color: var(--muted); opacity: .7; font-size: 18px; }
+
+/* empty-state hero (like the app's Channel List) */
+.empty { text-align: center; padding: 26px 16px 22px; }
+.empty p { font-weight: 600; font-size: 18px; margin: 0; }
+.empty p em { color: var(--accent); font-style: normal; }
+.pillbtn {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+  background: var(--accent); color: #fff; text-decoration: none; font-weight: 600;
+  padding: 10px 20px; border-radius: 999px;
 }
 
-/* header */
-.topbar {
-  position: sticky; top: 0; z-index: 10;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+/* detail content */
+.card { background: var(--card); border-radius: 14px; padding: 14px 16px; margin: 12px 0; }
+.card > :first-child { margin-top: 0; } .card > :last-child { margin-bottom: 0; }
+h3 { font-size: 17px; margin: 22px 4px 8px; }
+p { margin: 0 0 10px; }
+.page > p { margin-left: 4px; margin-right: 4px; }
+ol.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+ol.steps li { counter-increment: s; position: relative; padding: 11px 0 11px 42px; }
+ol.steps li + li { border-top: 1px solid var(--sep); }
+ol.steps li::before {
+  content: counter(s); position: absolute; left: 0; top: 12px; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 14px;
 }
-.topbar-inner {
-  max-width: 1120px; margin: 0 auto; padding: 10px 16px;
-  display: flex; align-items: center; gap: 12px;
-}
-.brand { font-weight: 700; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
-.brand-mark {
-  width: 28px; height: 28px; border-radius: 8px; background: var(--accent);
-  display: grid; place-items: center; color: var(--bg); font-size: 13px; font-weight: 700;
-}
-.topbar .spacer { flex: 1; }
-.icon-btn {
-  border: 1px solid var(--border); background: var(--surface); color: var(--text);
-  border-radius: 8px; height: 34px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 14px;
-}
-.menu-btn { display: none; }
+ol.steps strong { display: block; font-weight: 600; }
+ol.steps span { color: var(--muted); font-size: 14.5px; }
+.ui { font-weight: 600; font-family: -apple-system, system-ui, sans-serif; color: var(--text); }
+.path { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; font-weight: 600; }
+.path i { font-style: normal; color: var(--muted); }
+a.path { text-decoration: none; }
 
-/* layout */
-.layout {
-  max-width: 1120px; margin: 0 auto; padding: 0 16px;
-  display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 40px;
-}
-nav.toc {
-  position: sticky; top: 70px; align-self: start;
-  max-height: calc(100vh - 80px); overflow: auto; padding: 24px 0;
-}
-nav.toc ol { list-style: none; margin: 0; padding: 0; }
-nav.toc a {
-  display: block; padding: 6px 12px; border-radius: 8px;
-  color: var(--muted); text-decoration: none; font-size: 15px;
-}
-nav.toc a:hover { background: var(--surface-2); color: var(--text); }
-nav.toc a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
-main { padding: 32px 0 80px; min-width: 0; }
+.note { border-radius: 14px; padding: 12px 14px; margin: 12px 0; font-size: 15px; background: var(--card); }
+.note b.l { display: block; margin-bottom: 2px; }
+.note.tip { background: var(--ok-soft); } .note.tip b.l { color: var(--ok); }
+.note.warn { background: var(--warn-soft); } .note.warn b.l { color: var(--warn); }
+.note.bad { background: var(--accent-soft); } .note.bad b.l { color: var(--accent); }
 
-.hero h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.25; margin: 0 0 12px; }
-.hero p { color: var(--muted); margin: 0 0 20px; max-width: 62ch; }
-.pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-.pill {
-  font-size: 13px; padding: 3px 10px; border-radius: 999px;
-  border: 1px solid var(--border); background: var(--surface); color: var(--muted);
-}
+.shots { display: flex; gap: 12px; overflow-x: auto; margin: 12px -16px; padding: 4px 16px 10px; scroll-snap-type: x mandatory; }
+.shots figure { margin: 0; flex: 0 0 min(62%, 230px); scroll-snap-align: center; }
+.shots img { width: 100%; display: block; border-radius: 24px; border: 1px solid var(--sep); background: #fff; box-shadow: var(--shadow); }
+.shots figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.45; text-align: center; }
+.shots.one { justify-content: center; }
+.shots.one figure { flex-basis: min(70%, 260px); }
 
-section { margin-top: 56px; }
-h2 { font-size: 24px; line-height: 1.35; margin: 0 0 8px; display: flex; align-items: baseline; gap: 10px; }
-h2 .num {
-  font-size: 14px; color: var(--accent); background: var(--accent-soft);
-  border-radius: 6px; padding: 0 8px; font-weight: 600; flex: none;
-}
-h3 { font-size: 18px; margin: 28px 0 6px; }
-.lead { color: var(--muted); margin: 0 0 20px; }
-
-.card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 20px;
-}
-
-/* steps */
-ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: s; display: grid; gap: 12px; }
-ol.steps > li {
-  counter-increment: s; position: relative;
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 14px 16px 14px 60px;
-}
-ol.steps > li::before {
-  content: counter(s);
-  position: absolute; left: 16px; top: 14px;
-  width: 30px; height: 30px; border-radius: 50%;
-  background: var(--accent); color: var(--bg);
-  display: grid; place-items: center; font-weight: 700; font-size: 15px;
-}
-ol.steps strong { display: block; }
-ol.steps span { color: var(--muted); font-size: 15px; }
-
-/* callouts */
-.note {
-  border-radius: var(--radius); padding: 12px 16px; margin: 16px 0;
-  border: 1px solid var(--border); background: var(--surface-2); font-size: 15px;
-}
-.note.tip { background: var(--accent-soft); border-color: transparent; }
-.note.warn { background: var(--warn-soft); border-color: transparent; }
-.note.danger { background: var(--danger-soft); border-color: transparent; }
-.note b.label { display: block; margin-bottom: 2px; }
-.note.tip b.label { color: var(--accent); }
-.note.warn b.label { color: var(--warn); }
-.note.danger b.label { color: var(--danger); }
-
-/* profile cards */
-.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.profile h3 { margin: 0 0 2px; display: flex; gap: 8px; align-items: center; }
-.profile .zh { font-size: 13px; color: var(--muted); font-weight: 400; }
-.profile p { margin: 4px 0 0; font-size: 15px; }
-.profile .use { color: var(--muted); font-size: 14px; margin-top: 8px; }
-
-/* tables */
-.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
-table { border-collapse: collapse; width: 100%; font-size: 15px; }
-th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
-th { background: var(--surface-2); font-weight: 600; white-space: nowrap; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+td, th { text-align: left; padding: 9px 0; border-bottom: 1px solid var(--sep); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; font-size: 13px; }
+td:first-child { padding-right: 12px; font-weight: 600; width: 40%; }
 tr:last-child td { border-bottom: 0; }
 
-/* code */
-.code {
-  position: relative; margin: 10px 0 16px;
-  background: var(--code-bg); border-radius: 10px;
-}
-.code pre {
-  margin: 0; padding: 14px 16px; padding-right: 72px;
-  color: var(--code-text); font-size: 13px; line-height: 1.6;
-  overflow-x: auto; white-space: pre;
-}
-.copy {
-  position: absolute; top: 8px; right: 8px;
-  font: 500 12px "IBM Plex Sans Thai", sans-serif;
-  background: #ffffff1a; color: #e6e6e1; border: 1px solid #ffffff26;
-  border-radius: 6px; padding: 3px 10px; cursor: pointer;
-}
-.copy:hover { background: #ffffff2e; }
+.code { position: relative; background: var(--code-bg); border-radius: 12px; margin: 8px 0 14px; }
+.code pre { margin: 0; padding: 12px 14px; padding-right: 70px; color: #e8e8ea; font: 12.5px/1.6 "JetBrains Mono", ui-monospace, monospace; overflow-x: auto; }
+.copy { position: absolute; top: 8px; right: 8px; font: 500 12px "IBM Plex Sans Thai", sans-serif; background: #ffffff1f; color: #eee; border: 0; border-radius: 6px; padding: 3px 9px; cursor: pointer; }
 
-/* accordion */
-details {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  margin-bottom: 10px;
-}
-details > summary {
-  cursor: pointer; padding: 14px 44px 14px 16px; font-weight: 600; list-style: none; position: relative;
-}
-details > summary::-webkit-details-marker { display: none; }
-details > summary::after {
-  content: "+"; position: absolute; right: 16px; top: 12px;
-  font-size: 20px; color: var(--muted); font-weight: 400;
-}
-details[open] > summary::after { content: "−"; }
-details > .body { padding: 0 16px 14px; font-size: 15px; }
-details > .body > :first-child { margin-top: 0; }
-summary .err {
-  display: block; font-family: "JetBrains Mono", monospace; font-weight: 400;
-  font-size: 12.5px; color: var(--danger); margin-top: 2px; overflow-wrap: anywhere;
-}
+details { background: var(--card); border-radius: 14px; margin: 10px 0; }
+summary { cursor: pointer; padding: 13px 40px 13px 14px; font-weight: 600; list-style: none; position: relative; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "›"; position: absolute; right: 16px; top: 11px; color: var(--muted); font-size: 20px; transition: transform .2s; }
+details[open] summary::after { transform: rotate(90deg); }
+summary .err { display: block; font: 12px "JetBrains Mono", monospace; color: var(--accent); font-weight: 400; overflow-wrap: anywhere; margin-top: 2px; }
+details .b { padding: 0 14px 12px; font-size: 15px; }
 
-ul.check { padding-left: 0; list-style: none; margin: 8px 0; }
-ul.check li { padding-left: 28px; position: relative; margin: 6px 0; }
-ul.check li::before {
-  content: ""; position: absolute; left: 2px; top: 6px; width: 16px; height: 16px;
-  border: 2px solid var(--accent); border-radius: 4px;
-}
-ul.check li.done::before { background: var(--accent); }
-ul.check li.done::after {
-  content: ""; position: absolute; left: 7px; top: 9px; width: 5px; height: 9px;
-  border: solid var(--bg); border-width: 0 2px 2px 0; transform: rotate(45deg);
-}
+ul.check { list-style: none; padding: 0; margin: 0; }
+ul.check li { position: relative; padding: 9px 0 9px 30px; font-size: 15px; }
+ul.check li + li { border-top: 1px solid var(--sep); }
+ul.check li::before { content: ""; position: absolute; left: 2px; top: 14px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--accent); }
 
-.path {
-  font-weight: 600; white-space: nowrap;
+/* tab bar (mirrors the app) */
+.tabwrap {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom));
+  width: min(560px, 100%); padding: 0 12px; display: flex; gap: 10px; z-index: 30;
 }
-.path i { font-style: normal; color: var(--muted); margin: 0 4px; }
+.tabbar {
+  flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); padding: 5px;
+  background: var(--bar); backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px);
+  border-radius: 999px; box-shadow: var(--shadow); border: 1px solid var(--sep);
+}
+.tab {
+  display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 6px 0 5px;
+  border-radius: 999px; color: var(--text); text-decoration: none; font-size: 11px; font-weight: 600;
+}
+.tab svg { width: 24px; height: 24px; }
+.tab.on { background: var(--fill); color: var(--accent); }
+.searchbtn {
+  width: 62px; flex: none; border-radius: 50%; border: 1px solid var(--sep);
+  background: var(--bar); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--shadow); color: var(--text); display: grid; place-items: center;
+}
+.searchbtn.on { color: var(--accent); }
+.searchbtn svg { width: 24px; height: 24px; }
 
-/* screenshots */
-.shots {
-  display: flex; gap: 14px; overflow-x: auto; padding: 4px 2px 12px; margin: 16px 0;
-  scroll-snap-type: x mandatory;
-}
-.shots figure { margin: 0; flex: 0 0 200px; scroll-snap-align: start; }
-.shots img, .shot img {
-  width: 100%; height: auto; display: block;
-  border-radius: 22px; border: 1px solid var(--border); background: #fff;
-  box-shadow: 0 1px 2px rgb(0 0 0 / .04), 0 6px 20px rgb(0 0 0 / .06);
-}
-.shots figcaption, .shot figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
-.shots figcaption b { color: var(--text); }
-.with-shot { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; align-items: start; }
-.shot { margin: 0; }
-.ui { font-weight: 600; font-family: -apple-system, system-ui, sans-serif; }
-
-footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
-
-/* mobile */
-@media (max-width: 860px) {
-  .layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .menu-btn { display: inline-block; }
-  nav.toc {
-    position: fixed; top: 55px; left: 0; right: 0; max-height: 70vh;
-    background: var(--bg); border-bottom: 1px solid var(--border);
-    padding: 12px 16px; z-index: 9; display: none;
-  }
-  nav.toc.open { display: block; }
-  .grid-2 { grid-template-columns: minmax(0, 1fr); }
-  .with-shot { grid-template-columns: minmax(0, 1fr); }
-  .with-shot .shot { max-width: 220px; }
-  .shots figure { flex-basis: 170px; }
-  .path { white-space: normal; }
-}
+/* search */
+.searchbox { display: flex; align-items: center; gap: 8px; background: var(--fill); border-radius: 12px; padding: 0 12px; margin: 4px 0 8px; }
+.searchbox input { flex: 1; border: 0; background: transparent; color: var(--text); font: inherit; padding: 11px 0; outline: none; min-width: 0; }
+.searchbox svg { color: var(--muted); }
+mark { background: var(--accent-soft); color: inherit; border-radius: 3px; }
+.foot { text-align: center; color: var(--muted); font-size: 12.5px; margin: 28px 8px 0; }
 </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <a class="brand" href="#top"><span class="brand-mark">TV</span>คู่มือ APTV</a>
-    <span class="spacer"></span>
-    <button class="icon-btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="toc">สารบัญ</button>
-    <button class="icon-btn" id="themeBtn" aria-label="สลับธีม">◐</button>
-  </div>
-</header>
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
+  <symbol id="folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="18" cy="5" r="2.2"/></symbol>
+  <symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+  <symbol id="link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></symbol>
+  <symbol id="merge" viewBox="0 0 24 24"><rect x="3" y="7" width="12" height="12" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4"/></symbol>
+  <symbol id="server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></symbol>
+  <symbol id="tv" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8"/></symbol>
+  <symbol id="play" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 9 5 3-5 3z"/></symbol>
+  <symbol id="compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></symbol>
+  <symbol id="cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.5-8A5.5 5.5 0 0 1 17 9a4.5 4.5 0 0 1 .5 9z"/></symbol>
+  <symbol id="info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></symbol>
+  <symbol id="refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7L20 8"/><path d="M20 3v5h-5"/></symbol>
+  <symbol id="wifi" viewBox="0 0 24 24"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></symbol>
+  <symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></symbol>
+  <symbol id="alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></symbol>
+  <symbol id="sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  <symbol id="cc" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 10.5a2 2 0 1 0 0 3M16 10.5a2 2 0 1 0 0 3"/></symbol>
+</svg>
 
-<div class="layout" id="top">
-  <nav class="toc" id="toc" aria-label="สารบัญ">
-    <ol>
-      <li><a href="#start">เริ่มต้นใช้งาน</a></li>
-      <li><a href="#profiles">ประเภท Config</a></li>
-      <li><a href="#single">เพิ่มช่องเดี่ยว m3u8</a></li>
-      <li><a href="#subscription">ฟอร์ม Subscribe</a></li>
-      <li><a href="#aggregate">รวมหลายแหล่ง</a></li>
-      <li><a href="#settings">ตั้งค่าที่ควรรู้</a></li>
-      <li><a href="#catchup">ดูย้อนหลัง</a></li>
-      <li><a href="#icloud">iCloud &amp; Apple TV</a></li>
-      <li><a href="#restore">กู้คืนการซื้อ</a></li>
-      <li><a href="#ipv6">ช่อง IPv6</a></li>
-      <li><a href="#faq">คำถามที่พบบ่อย</a></li>
-      <li><a href="#browser">YouTube / Browser</a></li>
-    </ol>
-  </nav>
+<div class="app">
+  <header class="topnav" id="topnav">
+    <button class="circle back" id="back" aria-label="ย้อนกลับ">‹</button>
+    <div class="title" id="navtitle"></div>
+    <button class="circle theme" id="theme" aria-label="สลับธีม">◐</button>
+  </header>
 
-  <main>
-    <div class="hero">
-      <div class="pills">
-        <span class="pill">iPhone / iPad</span>
-        <span class="pill">Apple TV</span>
-        <span class="pill">Mac</span>
-        <span class="pill">Apple Watch</span>
-        <span class="pill">ภาพจากแอปเวอร์ชัน 1.5.12</span>
-      </div>
-      <h1>คู่มือ APTV ฉบับใช้งานจริง</h1>
-      <p>APTV เป็นแอปเล่น IPTV (ไฟล์ m3u / txt, Xtream Codes, Stalker Portal) บนอุปกรณ์ Apple ทุกเครื่อง หน้านี้สรุปจาก <a href="https://docs.aptvapp.com/" target="_blank" rel="noopener">คู่มือทางการ (ภาษาจีน)</a> พร้อมภาพหน้าจอจริง ชื่อเมนูอ้างอิงแอปที่ตั้งภาษาเป็น English</p>
+  <main id="pages">
+
+  <!-- ===================== CHANNEL TAB ===================== -->
+  <section class="page" data-id="channel" data-tab="channel" data-title="Channel List">
+    <h1 class="large">Channel List</h1>
+    <p class="sub">แท็บแรกของแอป — ดูและเล่นช่อง · แตะแถวเพื่อดูวิธีใช้</p>
+    <div class="card empty">
+      <p>เพิ่งเริ่มใช้? ต้อง <em>Add a config</em> ก่อน</p>
+      <a class="pillbtn" href="#start"><svg class="i"><use href="#help"/></svg>How To Start?</a>
     </div>
-
-    <div class="note tip">
-      <b class="label">ทุกแพลตฟอร์มใช้เหมือนกัน</b>
-      iOS, tvOS (Apple TV) และ macOS มีขั้นตอนการใช้งานเหมือนกันทุกอย่าง เรียนรู้ครั้งเดียวใช้ได้ทุกเครื่อง
+    <div class="group-h">ในหน้า Channel</div>
+    <div class="group">
+      <a class="row" href="#player"><span class="ic"><svg class="i"><use href="#tv"/></svg></span><span class="t">เล่นช่อง &amp; หน้าเครื่องเล่น<small>Delay, รายการโปรด, AirPlay</small></span><span class="chev">›</span></a>
+      <a class="row" href="#single"><span class="ic" style="--c:#ff9f0a"><svg class="i"><use href="#plus"/></svg></span><span class="t">เพิ่มช่องเดี่ยว (m3u8)<small>添加单频道 / Add channel</small></span><span class="chev">›</span></a>
+      <a class="row" href="#quickplay"><span class="ic" style="--c:#5e5ce6"><svg class="i"><use href="#play"/></svg></span><span class="t">ปุ่ม ▶ Quick Play<small>เล่นลิงก์ทันทีโดยไม่บันทึก</small></span><span class="chev">›</span></a>
+      <a class="row" href="#browser"><span class="ic" style="--c:#0a84ff"><svg class="i"><use href="#compass"/></svg></span><span class="t">Browser / YouTube<small>เบราว์เซอร์ในแอป</small></span><span class="chev">›</span></a>
     </div>
+    <div class="group-h">แก้ปัญหา</div>
+    <div class="group">
+      <a class="row" href="#notplay"><span class="ic" style="--c:#8e8e93"><svg class="i"><use href="#alert"/></svg></span><span class="t">ช่องเปิดไม่ขึ้น / หมุนค้าง</span><span class="chev">›</span></a>
+      <a class="row" href="#ipv6"><span class="ic" style="--c:#30b0c7"><svg class="i"><use href="#wifi"/></svg></span><span class="t">ช่อง IPv6 ดูไม่ได้</span><span class="chev">›</span></a>
+    </div>
+    <p class="foot">สรุปจาก <a href="https://docs.aptvapp.com/" target="_blank" rel="noopener">docs.aptvapp.com</a> · ภาพจาก APTV 1.5.12 (iOS) ภาษา English · ภาพช่องทีวีและข้อมูลส่วนตัวถูกเบลอ</p>
+  </section>
 
-    <!-- 1 -->
-    <section id="start">
-      <h2><span class="num">01</span>เริ่มต้นใช้งาน</h2>
-      <p class="lead">หลักการคือ “เพิ่ม Config → แตะเลือกใช้งาน → ไปหน้า Channel”</p>
+  <section class="page" data-id="start" data-tab="channel" data-title="How To Start?">
+    <div class="crumb"><b>Channel</b><span class="sepr">›</span>How To Start?</div>
+    <h1 class="large">How To Start?</h1>
+    <p class="sub">เริ่มดูช่องแรกใน 5 ขั้น — iPhone, iPad, Apple TV, Mac ขั้นตอนเหมือนกัน</p>
+    <div class="card">
       <ol class="steps">
         <li><strong>แตะแท็บ <span class="ui">Config</span> ที่แถบด้านล่าง</strong><span>เข้าสู่ Config Center</span></li>
-        <li><strong>แตะไอคอนโซ่ + มุมขวาบน</strong><span>จะมีเมนู Add config ให้เลือกประเภท</span></li>
-        <li><strong>เลือก <span class="ui">Subscribe</span> แล้ววางลิงก์ m3u/txt → แตะ 保存 (บันทึก) มุมขวาบน</strong><span>อยากลองก่อน ใช้ลิงก์สาธิต <code>https://pastebin.com/raw/40MQLfcA</code> (ไม่มีช่องจริง ใช้ฝึกเท่านั้น)</span></li>
-        <li><strong>แตะวงกลมด้านขวาของ Config ที่เพิ่งเพิ่ม</strong><span>ให้ขึ้นเครื่องหมายถูก = Config ที่กำลังใช้งานอยู่ (เพิ่มแล้วไม่แตะ จะไม่มีช่องขึ้น)</span></li>
-        <li><strong>แตะแท็บ <span class="ui">Channel</span> แล้วแตะช่องเพื่อเล่น</strong><span>การ์ดช่องจะมีภาพพรีวิวและค่า Delay (ms) — ตัวเลขยิ่งน้อยยิ่งดี</span></li>
+        <li><strong>แตะไอคอนโซ่ <svg class="i"><use href="#link"/></svg>+ มุมขวาบน</strong><span>เมนู Add config จะขึ้นมา</span></li>
+        <li><strong>เลือก <span class="ui">Subscribe</span> วางลิงก์ m3u/txt → แตะ <span class="ui">保存</span> (Save)</strong><span>ลองด้วยลิงก์สาธิต <code>https://pastebin.com/raw/40MQLfcA</code> ได้ (ไม่มีช่องจริง)</span></li>
+        <li><strong>แตะวงกลมขวามือของ Config ที่เพิ่ม</strong><span>ให้ขึ้นเครื่องหมายถูก = ใช้งานอยู่ ถ้าไม่แตะจะไม่มีช่องขึ้น</span></li>
+        <li><strong>กลับแท็บ <span class="ui">Channel</span> แตะช่องเพื่อเล่น</strong></li>
       </ol>
-      <div class="shots">
-        <figure><img src="img/01-config-center.jpg" alt="หน้า Config Center ว่างเปล่า" loading="lazy"><figcaption><b>1–2</b> Config Center — ปุ่มโซ่ + คือเพิ่ม Config</figcaption></figure>
-        <figure><img src="img/02-add-config-menu.jpg" alt="เมนู Add config" loading="lazy"><figcaption><b>3</b> เมนูเลือกประเภท Config</figcaption></figure>
-        <figure><img src="img/04-config-added.jpg" alt="เพิ่ม Config สำเร็จ" loading="lazy"><figcaption><b>4</b> แตะวงกลมขวามือเพื่อเลือกใช้งาน</figcaption></figure>
-        <figure><img src="img/07-channel-list.jpg" alt="รายการช่อง" loading="lazy"><figcaption><b>5</b> หน้า Channel แสดงพรีวิว + Delay</figcaption></figure>
-      </div>
-      <div class="note warn">
-        <b class="label">ห้ามลืม: เปิด iCloud Sync ตั้งแต่วันแรก</b>
-        ค่าเริ่มต้นปิดอยู่ ถ้าไม่เปิด แล้วลบ/ติดตั้งแอปใหม่ Config ทั้งหมดจะหายและกู้คืนไม่ได้ — ดู <a href="#icloud">หัวข้อ iCloud</a>
-      </div>
-    </section>
+    </div>
+    <div class="shots">
+      <figure><img src="img/01-config-center.jpg" alt="Config Center" loading="lazy"><figcaption>1–2 · Config Center</figcaption></figure>
+      <figure><img src="img/02-add-config-menu.jpg" alt="Add config" loading="lazy"><figcaption>3 · Add config</figcaption></figure>
+      <figure><img src="img/04-config-added.jpg" alt="Config ที่เพิ่มแล้ว" loading="lazy"><figcaption>4 · แตะวงกลมขวามือ</figcaption></figure>
+      <figure><img src="img/07-channel-list.jpg" alt="Channel List" loading="lazy"><figcaption>5 · รายการช่อง</figcaption></figure>
+    </div>
+    <div class="note warn"><b class="l">เปิด iCloud Sync ตั้งแต่วันแรก</b>ค่าเริ่มต้นปิดอยู่ ถ้าลบแอปตอนยังไม่เปิด Config จะหายถาวร → <a href="#icloud">Setting › iCloud</a></div>
+  </section>
 
-    <!-- 2 -->
-    <section id="profiles">
-      <h2><span class="num">02</span>ประเภท Config เลือกแบบไหนดี</h2>
-      <p class="lead">เมนู Add config มี 6 แบบ เลือกตามสิ่งที่ผู้ให้บริการให้มา</p>
-      <div class="with-shot">
-        <div class="grid-2">
-          <div class="card profile">
-            <h3>Subscribe</h3>
-            <p>วางลิงก์ m3u หรือ txt อัปเดตตามต้นทางได้อัตโนมัติ</p>
-            <p class="use">ใช้เมื่อ: ได้ลิงก์ playlist มา (พบบ่อยที่สุด)</p>
-          </div>
-          <div class="card profile">
-            <h3>Local</h3>
-            <p>เลือกไฟล์ m3u/txt จากเครื่องหรือ iCloud Drive หรือกด “แชร์ → เปิดด้วย APTV” จากแอปอื่น</p>
-            <p class="use">ใช้เมื่อ: มีไฟล์ playlist อยู่แล้ว</p>
-          </div>
-          <div class="card profile">
-            <h3>Blank</h3>
-            <p>Config เปล่า ไว้เพิ่มช่องเองทีละช่อง</p>
-            <p class="use">ใช้เมื่อ: มีแค่ลิงก์สตรีม (m3u8) — ดู <a href="#single">หัวข้อ 03</a></p>
-          </div>
-          <div class="card profile">
-            <h3>Merging Config</h3>
-            <p>รวมหลาย Config เป็นอันเดียว ช่องชื่อเดียวกันจะรวมกันและสลับแหล่งสำรองเอง</p>
-            <p class="use">ใช้เมื่อ: มีหลายแหล่ง อยากได้ช่องที่ไม่ค่อยดับ</p>
-          </div>
-          <div class="card profile">
-            <h3>Xtream Codes</h3>
-            <p>กรอก Server URL, Username, Password ที่ผู้ให้บริการ IPTV ให้มา</p>
-            <p class="use">ใช้เมื่อ: ได้ข้อมูลล็อกอินแบบ Xtream</p>
-          </div>
-          <div class="card profile">
-            <h3>Stalker Portal</h3>
-            <p>กรอก Portal URL และ MAC Address</p>
-            <p class="use">ใช้เมื่อ: ผู้ให้บริการให้เป็นแบบ MAG/Portal</p>
-          </div>
-        </div>
-        <figure class="shot"><img src="img/02-add-config-menu.jpg" alt="เมนู Add config 6 ประเภท" loading="lazy"><figcaption>เมนู Add config</figcaption></figure>
-      </div>
-      <div class="note">
-        <b class="label">เพิ่มไฟล์ Local แล้วไม่ขึ้นในรายการ?</b>
-        ปัดปิดแอป (ปัดขึ้นจาก App Switcher) แล้วเปิดใหม่
-      </div>
-    </section>
+  <section class="page" data-id="player" data-tab="channel" data-title="เล่นช่อง">
+    <div class="crumb"><b>Channel</b><span class="sepr">›</span>แตะช่อง</div>
+    <h1 class="large">เล่นช่อง</h1>
+    <div class="shots">
+      <figure><img src="img/07-channel-list.jpg" alt="การ์ดช่อง" loading="lazy"><figcaption>การ์ดช่อง: พรีวิว + Delay (ms)</figcaption></figure>
+      <figure><img src="img/08-player.jpg" alt="หน้าเครื่องเล่น" loading="lazy"><figcaption>หน้าเครื่องเล่น</figcaption></figure>
+    </div>
+    <div class="card">
+      <table>
+        <tr><td>ตัวเลข ms บนการ์ด</td><td>ความหน่วงของแหล่ง ยิ่งน้อยยิ่งดี ไม่มีตัวเลข = แหล่งอาจใช้ไม่ได้</td></tr>
+        <tr><td>♡ มุมขวาบน</td><td>เพิ่มเข้า <a href="#favorite">Favorite</a></td></tr>
+        <tr><td>ไอคอนจอ</td><td>AirPlay ขึ้น Apple TV / ทีวี</td></tr>
+        <tr><td>ⓘ</td><td>ข้อมูลสตรีม (ความละเอียด, fps)</td></tr>
+        <tr><td>Category / Channel</td><td>สลับหมวดและช่องโดยไม่ต้องออกจากหน้าเล่น</td></tr>
+        <tr><td>Program</td><td>ผังรายการ (EPG) และดูย้อนหลังถ้าแหล่งรองรับ</td></tr>
+        <tr><td>1/1 Signal</td><td>จำนวนแหล่งของช่องนี้ (ใช้กับ <a href="#merging">Merging Config</a>)</td></tr>
+      </table>
+    </div>
+    <p>ส่งไปเล่นใน VLC / Infuse ได้ และเปลี่ยนสัดส่วนภาพได้</p>
+  </section>
 
-    <!-- 3 -->
-    <section id="single">
-      <h2><span class="num">03</span>เพิ่มช่องเดี่ยวจากลิงก์ m3u8</h2>
-      <p class="lead">มีแค่ลิงก์สตรีมช่องเดียว ใช้ Config แบบ Blank</p>
+  <section class="page" data-id="single" data-tab="channel" data-title="เพิ่มช่องเดี่ยว">
+    <div class="crumb"><b>Config</b><span class="sepr">›</span>Blank<span class="sepr">›</span><b>Channel</b><span class="sepr">›</span>添加单频道</div>
+    <h1 class="large">เพิ่มช่องเดี่ยว (m3u8)</h1>
+    <p class="sub">มีแค่ลิงก์สตรีมช่องเดียว ใช้ Config แบบ Blank</p>
+    <div class="card">
       <ol class="steps">
-        <li><strong>Config → ปุ่มโซ่ + → <span class="ui">Blank</span></strong><span>ใส่ชื่อ Config (ไม่ใส่ก็ได้ จะชื่อ Default) แล้วแตะ 保存</span></li>
+        <li><strong>Config → <svg class="i"><use href="#link"/></svg>+ → <span class="ui">Blank</span> → <span class="ui">保存</span></strong><span>ชื่อไม่ใส่ก็ได้ (จะชื่อ Default)</span></li>
         <li><strong>แตะวงกลมขวามือให้ Config นี้ถูกเลือก</strong></li>
-        <li><strong>ไปแท็บ Channel → แตะ <span class="ui">添加单频道</span> (Add single channel)</strong><span>หรือ 添加多频道 = เพิ่มหลายช่อง, 添加融合频道 = ช่องรวมหลายแหล่ง</span></li>
-        <li><strong>กรอก <span class="ui">Channel URL</span> และ <span class="ui">Channel Name</span> → 保存</strong><span>รองรับ HTTP, RTP, RTSP, RTMP ส่วนช่องอื่นไม่ต้องกรอก</span></li>
-        <li><strong>แตะช่องเพื่อเล่น</strong></li>
+        <li><strong>แท็บ Channel → <span class="ui">添加单频道</span></strong><span>添加多频道 = หลายช่อง · 添加融合频道 = ช่องรวมหลายแหล่ง</span></li>
+        <li><strong>ใส่ <span class="ui">Channel URL</span> + <span class="ui">Channel Name</span> → <span class="ui">保存</span></strong><span>รองรับ HTTP, RTP, RTSP, RTMP</span></li>
       </ol>
-      <div class="shots">
-        <figure><img src="img/03-blank-config-form.jpg" alt="ฟอร์ม Add Blank Config" loading="lazy"><figcaption><b>1</b> Add Blank Config</figcaption></figure>
-        <figure><img src="img/05-empty-config-add-channel.jpg" alt="Config ว่าง มีปุ่มเพิ่มช่อง" loading="lazy"><figcaption><b>3</b> ปุ่มเพิ่มช่องในหน้า Channel</figcaption></figure>
-        <figure><img src="img/06-add-channel-form.jpg" alt="ฟอร์ม Add channel" loading="lazy"><figcaption><b>4</b> ฟอร์ม Add channel</figcaption></figure>
-        <figure><img src="img/08-player.jpg" alt="หน้าเล่นช่อง" loading="lazy"><figcaption><b>5</b> หน้าเล่น: ♡ รายการโปรด, AirPlay, ข้อมูลสตรีม</figcaption></figure>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ช่องในฟอร์ม</th><th>ใช้ทำอะไร</th></tr></thead>
-          <tbody>
-            <tr><td>Channel URL *</td><td>ลิงก์สตรีม (จำเป็น)</td></tr>
-            <tr><td>Channel Name / Logo</td><td>ชื่อและโลโก้ช่อง (ไม่ใส่ก็ได้)</td></tr>
-            <tr><td>EPG ID / EPG Name</td><td>ค่า <code>tvg-id</code> / <code>tvg-name</code> สำหรับจับคู่ผังรายการ</td></tr>
-            <tr><td>Request Parameters</td><td>ใส่ Header เช่น User-Agent, Referer สำหรับลิงก์ที่ต้องใช้</td></tr>
-            <tr><td>catchup</td><td><code>default</code> / <code>append</code> สำหรับดูย้อนหลัง — ดู <a href="#catchup">หัวข้อ 07</a></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="note tip">
-        <b class="label">แค่อยากลองเปิดลิงก์ ไม่ต้องบันทึก</b>
-        ใช้ปุ่ม ▶ มุมขวาบนหน้า Channel = <span class="ui">Quick Play</span> → Network Playback วาง URL แล้วเล่นทันที (มี Local Playback และ Browser ด้วย)
-      </div>
-    </section>
+    </div>
+    <div class="shots">
+      <figure><img src="img/03-blank-config-form.jpg" alt="Add Blank Config" loading="lazy"><figcaption>1 · Add Blank Config</figcaption></figure>
+      <figure><img src="img/05-empty-config-add-channel.jpg" alt="ปุ่มเพิ่มช่อง" loading="lazy"><figcaption>3 · ปุ่มเพิ่มช่อง</figcaption></figure>
+      <figure><img src="img/06-add-channel-form.jpg" alt="Add channel" loading="lazy"><figcaption>4 · Add channel</figcaption></figure>
+    </div>
+    <h3>ช่องในฟอร์ม Add channel</h3>
+    <div class="card">
+      <table>
+        <tr><td>Channel URL *</td><td>ลิงก์สตรีม (จำเป็น)</td></tr>
+        <tr><td>Channel Name / Logo</td><td>ชื่อ + โลโก้ (ไม่ใส่ก็ได้)</td></tr>
+        <tr><td>EPG ID / EPG Name</td><td><code>tvg-id</code> / <code>tvg-name</code> สำหรับจับคู่ผังรายการ</td></tr>
+        <tr><td>Request Parameters</td><td>Header เช่น User-Agent, Referer</td></tr>
+        <tr><td>catchup</td><td><code>default</code> / <code>append</code> → <a href="#catchup">ดูย้อนหลัง</a></td></tr>
+      </table>
+    </div>
+  </section>
 
-    <!-- 4 -->
-    <section id="subscription">
-      <h2><span class="num">04</span>ช่องต่าง ๆ ในฟอร์ม Subscribe</h2>
-      <p class="lead">กรอกแค่ลิงก์ก็ใช้ได้ ที่เหลือเป็นตัวเลือกเสริม</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ช่อง</th><th>ใส่อะไร</th><th>คำแนะนำ</th></tr></thead>
-          <tbody>
-            <tr><td>ลิงก์ Config</td><td>ลิงก์ m3u หรือ txt</td><td>ต้องเป็น <b>ลิงก์ตรงไปที่ไฟล์</b> ไม่ใช่ลิงก์หน้าเว็บ (เช่น Pastebin ต้องใช้ลิงก์ <code>/raw/</code>)</td></tr>
-            <tr><td>Config Name</td><td>ตั้งเองได้</td><td>เว้นว่างได้ ค่าเริ่มต้นคือ <code>Default</code></td></tr>
-            <tr><td>EPG Address</td><td>ลิงก์ XML (XMLTV) หรือ API แบบ DIYP</td><td>ไม่ใส่ แอปจะใช้ <code>url-tvg</code> ในไฟล์ m3u ก่อน แล้วค่อยใช้ Default EPG ของแอป</td></tr>
-            <tr><td>Auto Refresh</td><td>เปิด/ปิด</td><td>เปิดแอปแล้วถ้าไม่ได้อัปเดตเกิน 8 ชั่วโมง จะดึงใหม่เอง — แนะนำถ้าต้นทางเปลี่ยนบ่อย</td></tr>
-            <tr><td>Hide preview</td><td>เปิด/ปิด</td><td>ปิดภาพพรีวิวช่อง ช่วยประหยัดเน็ตเมื่อมีช่องเยอะ</td></tr>
-            <tr><td>Do Not Show Groups</td><td>เปิด/ปิด</td><td>แสดงช่องเป็นรายการเดียว ไม่แบ่งหมวด</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+  <section class="page" data-id="quickplay" data-tab="channel" data-title="Quick Play">
+    <div class="crumb"><b>Channel</b><span class="sepr">›</span>▶ มุมขวาบน</div>
+    <h1 class="large">Quick Play</h1>
+    <p class="sub">เล่นทันทีโดยไม่ต้องเพิ่มเข้า Config</p>
+    <div class="shots one"><figure><img src="img/18-quick-play.jpg" alt="Quick Play" loading="lazy"><figcaption>Quick Play</figcaption></figure></div>
+    <div class="card">
+      <table>
+        <tr><td>Network Playback</td><td>วาง URL เล่นทันที + ดูประวัติ</td></tr>
+        <tr><td>Local Playback</td><td>เล่นไฟล์จาก Files / Photos</td></tr>
+        <tr><td>Browser</td><td>เบราว์เซอร์ในแอป → <a href="#browser">ดูวิธีใช้</a></td></tr>
+      </table>
+    </div>
+  </section>
 
-    <!-- 5 -->
-    <section id="aggregate">
-      <h2><span class="num">05</span>Merging Config: รวมหลายแหล่งให้ช่องไม่ดับ</h2>
-      <div class="with-shot">
-        <div>
-          <ol class="steps">
-            <li><strong>Config → ปุ่มโซ่ + → <span class="ui">Merging Config</span></strong></li>
-            <li><strong>เลือก Config ที่จะรวมอย่างน้อย 1 อัน</strong><span>ลำดับที่แตะเลือก = ลำดับความสำคัญ (แหล่งแรกเล่นก่อน)</span></li>
-            <li><strong>ดูรายการช่อง</strong><span>มุมขวาบนของช่องบอกจำนวนแหล่งสำรอง</span></li>
-            <li><strong>เล่นช่อง</strong><span>แหล่งปัจจุบันเล่นไม่ได้ จะสลับไปแหล่งถัดไปเอง</span></li>
-          </ol>
-          <div class="note tip">
-            <b class="label">ปรับเวลารอก่อนสลับแหล่ง</b>
-            ค่าเริ่มต้น 5 วินาที ปรับที่ <span class="path">Setting<i>›</i>Advanced<i>›</i>Merging Config<i>›</i>Play Timeout</span>
-          </div>
-          <p>เคล็ดลับ: ชื่อช่องต้องตรงกันทุกตัวอักษรถึงจะรวมกัน ถ้าแหล่งหนึ่งชื่อ <code>Thai PBS</code> อีกแหล่งชื่อ <code>ThaiPBS HD</code> จะไม่ถูกรวม</p>
-        </div>
-        <figure class="shot"><img src="img/11-advanced-merge-timeout.jpg" alt="Advanced: Merging Config Play Timeout" loading="lazy"><figcaption>Setting › Advanced</figcaption></figure>
-      </div>
-    </section>
+  <section class="page" data-id="browser" data-tab="channel" data-title="Browser">
+    <div class="crumb"><b>Channel</b><span class="sepr">›</span>▶<span class="sepr">›</span>Browser</div>
+    <h1 class="large">Browser / YouTube</h1>
+    <p class="sub">เปิดเว็บวิดีโอ (YouTube, Netflix, TikTok, Bilibili…) ในแอป</p>
+    <div class="card">
+      <ol class="steps">
+        <li><strong>Channel → ▶ → <span class="ui">Browser</span></strong><span>หน้าแรกมี Video Websites (กดค้างเพื่อจัดลำดับ) และ Favorite channels</span></li>
+        <li><strong>แตะ <span class="ui">YouTube</span> หรือพิมพ์ URL ในช่องด้านล่าง</strong><span>ล็อกอิน Google ได้เหมือนเว็บปกติ</span></li>
+        <li><strong>ปุ่ม ▶ ข้างช่อง URL = <span class="ui">Video Sources</span></strong><span>ค้นหาลิงก์วิดีโอในหน้า ถ้าเจอจะเปิดด้วยเครื่องเล่น APTV ได้</span></li>
+        <li><strong>ปุ่ม ⋯ = เมนู <span class="ui">More</span></strong><span>Bookmark, Mobile Website, Media Compatibility, Page Zoom, Fullscreen, History</span></li>
+      </ol>
+    </div>
+    <div class="shots">
+      <figure><img src="img/14-browser-home.jpg" alt="Browser" loading="lazy"><figcaption>1 · หน้าแรก Browser</figcaption></figure>
+      <figure><img src="img/15-browser-youtube.jpg" alt="YouTube" loading="lazy"><figcaption>2 · YouTube (เบลอฟีด)</figcaption></figure>
+      <figure><img src="img/16-video-sources.jpg" alt="Video Sources" loading="lazy"><figcaption>3 · Video Sources</figcaption></figure>
+      <figure><img src="img/17-browser-more.jpg" alt="More" loading="lazy"><figcaption>4 · เมนู More</figcaption></figure>
+    </div>
+    <div class="note warn"><b class="l">YouTube ส่งเข้าเครื่องเล่น APTV ไม่ได้</b>ทดสอบแล้ว Video Sources เจอคลิป แต่ YouTube ไม่ให้ลิงก์เล่นแยก ต้องดูบนหน้าเว็บ ฟีเจอร์นี้ใช้ได้กับเว็บที่มีลิงก์ m3u8/mp4 ตรง</div>
+    <div class="note tip"><b class="l">คลิปเล่นไม่ได้ / เต็มจอไม่ได้</b>⋯ → <span class="ui">Website Media Compatibility</span> หรือ <span class="ui">Fullscreen Webpage</span> · เว็บที่ใช้บ่อย ⋯ → Bookmark This Page</div>
+    <p style="font-size:14px;color:var(--muted)">⋯ → Clear History and Website Data จะออกจากระบบทุกเว็บ แต่เก็บบุ๊กมาร์กไว้</p>
+  </section>
 
-    <!-- 6 -->
-    <section id="settings">
-      <h2><span class="num">06</span>ตั้งค่าที่ควรรู้</h2>
-      <div class="with-shot">
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>เมนู</th><th>ใช้ทำอะไร</th></tr></thead>
-            <tbody>
-              <tr><td>Setting › Preferred Player</td><td>เลือก engine เล่นวิดีโอ ช่องไหนเล่นไม่ได้ลองเปลี่ยนตัวนี้</td></tr>
-              <tr><td>Play In Background / Automatic PiP</td><td>เล่นเสียงต่อเมื่อออกจากแอป / ย่อเป็นจอลอยอัตโนมัติ</td></tr>
-              <tr><td>Show Delay / Show IPV6 ID</td><td>แสดงค่า ms และป้าย IPv6 บนการ์ดช่อง</td></tr>
-              <tr><td>Auto Load EPG / Default EPG</td><td>โหลดผังรายการอัตโนมัติ มี EPG เริ่มต้นของแอปให้</td></tr>
-              <tr><td>Advanced › Minimum Buffer Time</td><td>เพิ่มถ้าภาพกระตุกบ่อย (แลกกับเปิดช่องช้าลง)</td></tr>
-              <tr><td>Advanced › Hardware Decoding</td><td>เปิดไว้ลื่นกว่า ปิดเมื่อเจอฟอร์แมตที่เล่นไม่ได้ (เครื่องอาจร้อน)</td></tr>
-              <tr><td>Advanced › DeInterlace</td><td>แก้ภาพเป็นเส้นหวีในช่องแบบ interlaced</td></tr>
-              <tr><td>Advanced › User-Agent / Proxy</td><td>UA ที่ส่งไปทุกช่อง / ตั้ง Proxy เฉพาะแอป</td></tr>
-              <tr><td>Advanced › Realtime Subtitles</td><td>ซับไตเติลจากเสียงพูดแบบเรียลไทม์ + แปลภาษา (โหลดโมเดลก่อน แล้วกด Auto Subtitles ระหว่างเล่น)</td></tr>
-              <tr><td>Advanced › Laboratory</td><td>ฟีเจอร์ทดลอง เช่น Preselect HLS Quality, Replace PLTV with TVOD</td></tr>
-              <tr><td>About APTV › AI Assistant</td><td>แชตบอตถาม-ตอบเรื่อง APTV ในแอป</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <figure class="shot"><img src="img/09-settings-top.jpg" alt="หน้า Setting" loading="lazy"><figcaption>หน้า Setting</figcaption></figure>
-      </div>
-      <h3>ทริคบน Mac</h3>
-      <ul>
-        <li>ลากไฟล์ m3u/txt จาก Finder มาวางใน Config Center เพื่อเพิ่ม Local ได้เลย</li>
-        <li>คัดลอกลิงก์ไว้ แล้วกด ⌘V ใน Config Center ระบบจะเพิ่ม Subscribe ให้ทันที</li>
-      </ul>
-    </section>
-
-    <!-- 7 -->
-    <section id="catchup">
-      <h2><span class="num">07</span>ดูย้อนหลัง (Catch-up)</h2>
-      <p class="lead">สำหรับคนที่แก้ไฟล์ m3u เอง — ผู้ใช้ทั่วไปข้ามได้ ถ้าผู้ให้บริการตั้งไว้ให้แล้ว</p>
-
-      <h3>อัตโนมัติ (ไม่ต้องตั้งค่า)</h3>
-      <p>ถ้าลิงก์ช่องมีคำว่า <code>PLTV</code> หรือ <code>TVOD</code> APTV จะต่อพารามิเตอร์นี้ให้เอง</p>
-      <div class="code"><pre>?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}</pre></div>
-
-      <h3>ตั้งค่าทั้งไฟล์</h3>
-      <p>ใส่ในบรรทัด <code>#EXTM3U</code> บนสุด ใช้กับทุกช่อง</p>
-      <div class="code"><pre>#EXTM3U catchup="append" catchup-source="?playbackbegin=${(b)yyyyMMddHHmmss}&amp;playbackend=${(e)yyyyMMddHHmmss}"</pre></div>
-
-      <h3>ตั้งค่าเฉพาะช่อง (ต่อท้ายลิงก์เดิม)</h3>
-      <div class="code"><pre>#EXTINF:-1 catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}",CCTV1
-http://hostname:port/xxx</pre></div>
-
-      <h3>ตั้งลิงก์ย้อนหลังแยกต่างหาก</h3>
-      <p>ใช้ <code>catchup="default"</code> แล้วใส่ลิงก์เต็มของเซิร์ฟเวอร์ย้อนหลัง</p>
-      <div class="code"><pre>#EXTINF:-1 catchup="default" catchup-source="http://hostname:port/xxx2?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}",CCTV1
-http://hostname:port/xxx</pre></div>
-
-      <h3>ใช้เวลาแบบ UTC</h3>
-      <div class="code"><pre>#EXTINF:-1 catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss:utc}-${(e)yyyyMMddHHmmss:utc}",CCTV1
-http://hostname:port/xxx</pre></div>
-      <p>หรือรูปแบบสั้น</p>
-      <div class="code"><pre>#EXTINF:-1 catchup="append" catchup-source="?playseek={utc:YmdHMS}-{utcend:YmdHMS}",CCTV1
-http://hostname:port/xxx</pre></div>
-
-      <h3>ใช้ Timestamp</h3>
-      <div class="code"><pre>#EXTM3U catchup="append" catchup-source="?starttime=${(b)timestamp}&amp;endtime=${(e)timestamp}"
-http://hostname:port/xxx</pre></div>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ตัวแปร</th><th>ความหมาย</th></tr></thead>
-          <tbody>
-            <tr><td><code>${(b)…}</code> / <code>${(e)…}</code></td><td>เวลาเริ่ม / เวลาจบ ของรายการที่เลือก</td></tr>
-            <tr><td><code>yyyyMMddHHmmss</code></td><td>รูปแบบวันเวลา เช่น 20261003203000</td></tr>
-            <tr><td><code>:utc</code></td><td>แปลงเป็นเวลา UTC (ไทย = UTC+7)</td></tr>
-            <tr><td><code>timestamp</code></td><td>Unix timestamp (วินาที)</td></tr>
-            <tr><td><code>append</code> / <code>default</code></td><td>ต่อท้ายลิงก์ช่องเดิม / ใช้ลิงก์ที่กำหนดแทนทั้งหมด</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>ถ้าผู้ให้บริการต้องการเปลี่ยน <code>PLTV</code> เป็น <code>TVOD</code> ในลิงก์ย้อนหลัง เปิดได้ที่ <span class="path">Advanced<i>›</i>Laboratory<i>›</i>Replace PLTV with TVOD</span></p>
-    </section>
-
-    <!-- 8 -->
-    <section id="icloud">
-      <h2><span class="num">08</span>iCloud Sync &amp; Apple TV</h2>
-
-      <div class="with-shot">
-        <div>
-          <h3 style="margin-top:0">เปิด iCloud Sync (ต้องทำ 2 ที่)</h3>
-          <ol class="steps">
-            <li><strong>ในแอป: <span class="path">Setting<i>›</i>iCloud<i>›</i>iCloud Sync</span> เปิดสวิตช์</strong><span><span class="ui">iCloud Status</span> ต้องเปลี่ยนจาก Disabled เป็นเปิดใช้งาน และกด <span class="ui">Manual Sync</span> เพื่อ sync ทันที</span></li>
-            <li><strong>ใน iPhone: <span class="path">Settings<i>›</i>[ชื่อคุณ]<i>›</i>iCloud</span></strong><span>เปิดทั้ง APTV และ iCloud Drive</span></li>
-          </ol>
-        </div>
-        <figure class="shot"><img src="img/10-settings-icloud.jpg" alt="Setting ส่วน iCloud" loading="lazy"><figcaption>สวิตช์ iCloud Sync ในแอป (ภาพนี้ยังปิดอยู่)</figcaption></figure>
-      </div>
-
-      <div class="note danger">
-        <b class="label">ทำไม Config หายหมด?</b>
-        ถ้าออกจาก iCloud, สลับบัญชี หรือปิด iCloud ของแอป Apple จะล้างข้อมูลในเครื่อง แต่ข้อมูลบนคลาวด์ยังอยู่ — <b>เปิด iCloud กลับมาแล้วจะ sync คืน</b> ส่วนถ้าไม่เคยเปิด sync เลย การลบแอปจะทำให้ข้อมูลหายถาวร
-      </div>
-
-      <h3>เช็กลิสต์: sync ข้ามเครื่องไม่ได้</h3>
-      <p>ต้องเป็น APTV Pro และกด “กู้คืนการซื้อ” ในทุกเครื่องแล้ว จากนั้นไล่เช็ก:</p>
+  <section class="page" data-id="notplay" data-tab="channel" data-title="ช่องเปิดไม่ขึ้น">
+    <div class="crumb"><b>Channel</b><span class="sepr">›</span>แก้ปัญหา</div>
+    <h1 class="large">ช่องเปิดไม่ขึ้น</h1>
+    <div class="card">
       <ul class="check">
-        <li>ทุกเครื่องล็อกอิน Apple ID / iCloud เดียวกัน</li>
-        <li>เปิด iCloud ของ APTV และ iCloud Drive แล้ว</li>
-        <li>ในแอป <span class="path">Setting<i>›</i>iCloud Status</span> ไม่ใช่ Disabled ทุกเครื่อง</li>
-        <li>พื้นที่ iCloud ยังไม่เต็ม</li>
-        <li><b>Apple TV: ตั้ง “ผู้ใช้เริ่มต้น” (Default User) ถูกบัญชีแล้ว</b> — สาเหตุอันดับ 1 (ประมาณ 99%) ของการ sync ไม่ได้</li>
-        <li>Apple TV: ลองออกจากระบบ iCloud แล้วเข้าใหม่</li>
-        <li>Apple TV: ถอดปลั๊กไฟแล้วเสียบใหม่ (ไม่ใช่แค่ Restart จากเมนู)</li>
+        <li>ดูค่า ms บนการ์ดช่อง ถ้าไม่มีหรือสูงมาก แหล่งต้นทางมีปัญหา</li>
+        <li>ลองเปลี่ยน <a href="#settings">Setting › Preferred Player</a></li>
+        <li>ปิด/เปิด <a href="#advanced">Advanced › Hardware Decoding</a></li>
+        <li>ลิงก์ที่ต้องใช้ Header ใส่ใน <span class="ui">Request Parameters</span> ของช่อง</li>
+        <li>ช่อง IPv6 → <a href="#ipv6">เช็กว่าเน็ตรองรับ</a></li>
+        <li>มีหลายแหล่ง → รวมด้วย <a href="#merging">Merging Config</a> ให้สลับอัตโนมัติ</li>
       </ul>
+    </div>
+  </section>
 
-      <h3>ตั้งผู้ใช้เริ่มต้นบน Apple TV</h3>
-      <p>การ “สลับผู้ใช้ปัจจุบัน” <b>ไม่ใช่</b> การตั้งผู้ใช้เริ่มต้น ต้องไปตั้งที่</p>
-      <p><span class="path">Settings<i>›</i>Users and Accounts<i>›</i>Default User</span></p>
-    </section>
+  <!-- ===================== FAVORITE TAB ===================== -->
+  <section class="page" data-id="favorite" data-tab="favorite" data-title="Favorite">
+    <h1 class="large">Favorite</h1>
+    <p class="sub">ช่องที่กด ♡ ไว้จะมารวมที่นี่</p>
+    <div class="card">
+      <ol class="steps">
+        <li><strong>เปิดเล่นช่อง</strong></li>
+        <li><strong>แตะ ♡ มุมขวาบนของหน้าเล่น</strong></li>
+        <li><strong>ดูได้ที่แท็บ <span class="ui">Favorite</span></strong></li>
+      </ol>
+    </div>
+    <div class="shots one"><figure><img src="img/08-player.jpg" alt="ปุ่ม ♡ ในหน้าเล่น" loading="lazy"><figcaption>ปุ่ม ♡ มุมขวาบน</figcaption></figure></div>
+    <div class="note tip"><b class="l">เปิด iCloud Sync</b>รายการโปรดจะตามไปทุกเครื่อง → <a href="#icloud">Setting › iCloud</a></div>
+  </section>
 
-    <!-- 9 -->
-    <section id="restore">
-      <h2><span class="num">09</span>กู้คืนการซื้อ (Restore Purchase) ไม่ได้</h2>
-      <p class="lead">แตะหัวข้อที่ตรงกับข้อความ error ที่เห็น</p>
+  <!-- ===================== CONFIG TAB ===================== -->
+  <section class="page" data-id="config" data-tab="config" data-title="Config Center">
+    <h1 class="large">Config Center</h1>
+    <p class="sub">แหล่งช่อง (playlist) ทั้งหมด — แตะ <svg class="i"><use href="#link"/></svg>+ มุมขวาบนเพื่อเพิ่ม</p>
+    <div class="group-h">Add config · เลือกประเภท</div>
+    <div class="group">
+      <a class="row" href="#subscribe"><span class="ic"><svg class="i"><use href="#link"/></svg></span><span class="t">Subscribe<small>ลิงก์ m3u / txt — พบบ่อยที่สุด</small></span><span class="chev">›</span></a>
+      <a class="row" href="#local"><span class="ic" style="--c:#34c759"><svg class="i"><use href="#file"/></svg></span><span class="t">Local<small>ไฟล์ m3u / txt ในเครื่อง</small></span><span class="chev">›</span></a>
+      <a class="row" href="#blank"><span class="ic" style="--c:#ff9f0a"><svg class="i"><use href="#plus"/></svg></span><span class="t">Blank<small>เพิ่มช่องเองทีละช่อง</small></span><span class="chev">›</span></a>
+      <a class="row" href="#merging"><span class="ic" style="--c:#af52de"><svg class="i"><use href="#merge"/></svg></span><span class="t">Merging Config<small>รวมหลายแหล่ง สลับสำรองอัตโนมัติ</small></span><span class="chev">›</span></a>
+      <a class="row" href="#xtream"><span class="ic" style="--c:#0a84ff"><svg class="i"><use href="#server"/></svg></span><span class="t">Xtream Codes<small>Server + Username + Password</small></span><span class="chev">›</span></a>
+      <a class="row" href="#xtream"><span class="ic" style="--c:#5e5ce6"><svg class="i"><use href="#server"/></svg></span><span class="t">Stalker Portal<small>Portal URL + MAC</small></span><span class="chev">›</span></a>
+    </div>
+    <div class="group-f">ได้ลิงก์ → Subscribe · ได้ไฟล์ → Local · ได้ลิงก์ช่องเดียว (.m3u8) → Blank</div>
+    <div class="group-h">ขั้นสูง</div>
+    <div class="group">
+      <a class="row" href="#catchup"><span class="ic" style="--c:#ff375f"><svg class="i"><use href="#clock"/></svg></span><span class="t">ดูย้อนหลัง (catch-up)<small>ตั้งค่าในไฟล์ m3u</small></span><span class="chev">›</span></a>
+      <a class="row" href="#mac"><span class="ic" style="--c:#8e8e93"><svg class="i"><use href="#laptop"/></svg></span><span class="t">ทริคบน Mac<small>ลากวาง / ⌘V</small></span><span class="chev">›</span></a>
+      <a class="row" href="#m3u"><span class="ic" style="--c:#8e8e93"><svg class="i"><use href="#help"/></svg></span><span class="t">m3u กับ m3u8 ต่างกันยังไง</span><span class="chev">›</span></a>
+    </div>
+  </section>
 
-      <details>
-        <summary>ไม่พบหลักฐานการซื้อ<span class="err">未获取到您的购买凭据</span></summary>
-        <div class="body">
-          <p><b>1. ล็อกอินผิดบัญชี</b> — บัญชีที่ใช้กู้คืนต้องเป็นบัญชีที่ซื้อ (มักเกิดกับคนมีหลายบัญชีหลายประเทศ) ดูราคาในหน้าซื้อช่วยเดาได้ว่าเป็นบัญชีประเทศไหน ตรวจประวัติการซื้อได้ที่ <a href="https://reportaproblem.apple.com/" target="_blank" rel="noopener">reportaproblem.apple.com</a></p>
-          <p><b>2. บัญชีที่ดาวน์โหลดกับบัญชีที่ซื้อไม่ตรงกัน</b> — Apple กำหนดให้ต้องเป็นบัญชีเดียวกัน แก้โดยลบแอป → ล็อกอินบัญชีที่ซื้อ → ดาวน์โหลดใหม่ → กู้คืน (ข้อนี้ไม่ใช้กับ Apple TV ซึ่งต่างบัญชีได้)</p>
-          <p><b>3. มีประวัติซื้อแต่ไม่มีประวัติดาวน์โหลด</b> — เช่น ดาวน์โหลดด้วยบัญชี A แต่ซื้อด้วยบัญชี B ให้ลบแอปแล้วดาวน์โหลดใหม่ด้วยบัญชี B</p>
-          <p><b>4. ซื้อแบบเก่า (ก่อน 1 ต.ค. 2022)</b> — ตอนนั้นเป็นแอปเสียเงินก่อนดาวน์โหลด ให้ไปที่ <span class="path">Setting<i>›</i>About APTV<i>›</i>RCID</span> เลือกสร้างใหม่ รอสักครู่แล้วกู้คืน ถ้ายังไม่ได้ให้สร้างใหม่อีกหลายครั้ง</p>
-        </div>
-      </details>
+  <section class="page" data-id="subscribe" data-tab="config" data-title="Subscribe">
+    <div class="crumb"><b>Config</b><span class="sepr">›</span>🔗+<span class="sepr">›</span>Subscribe</div>
+    <h1 class="large">Subscribe</h1>
+    <p class="sub">วางลิงก์ playlist อัปเดตตามต้นทางได้</p>
+    <div class="shots one"><figure><img src="img/02-add-config-menu.jpg" alt="Add config" loading="lazy"><figcaption>เลือก Subscribe</figcaption></figure></div>
+    <div class="card">
+      <table>
+        <tr><th>ช่อง</th><th>คำแนะนำ</th></tr>
+        <tr><td>ลิงก์ Config</td><td>ต้องเป็น <b>ลิงก์ตรงไปที่ไฟล์</b> ไม่ใช่หน้าเว็บ (Pastebin ใช้ลิงก์ <code>/raw/</code>)</td></tr>
+        <tr><td>Config Name</td><td>เว้นว่างได้ ค่าเริ่มต้น <code>Default</code></td></tr>
+        <tr><td>EPG Address</td><td>XML (XMLTV) หรือ DIYP · ไม่ใส่จะใช้ <code>url-tvg</code> ในไฟล์ แล้วค่อยใช้ Default EPG ของแอป</td></tr>
+        <tr><td>Auto Refresh</td><td>ไม่ได้อัปเดตเกิน 8 ชม. จะดึงใหม่ตอนเปิดแอป</td></tr>
+        <tr><td>Hide preview</td><td>ปิดภาพพรีวิวช่อง ประหยัดเน็ต</td></tr>
+        <tr><td>Do Not Show Groups</td><td>แสดงเป็นรายการเดียว ไม่แบ่งหมวด</td></tr>
+      </table>
+    </div>
+    <div class="note"><b class="l">เพิ่มแล้วไม่มีช่อง?</b>อย่าลืมแตะวงกลมขวามือของ Config ให้เป็นเครื่องหมายถูก</div>
+  </section>
 
-      <details>
-        <summary>คำขอไม่น่าเชื่อถือ (MitM)<span class="err">无法信任的请求</span></summary>
-        <div class="body">
-          <p>แอป Proxy/VPN ของคุณกำลัง MitM โดเมน <code>api.revenuecat.com</code> (มักเกิดจากสคริปต์ปลดล็อก) แก้ได้ 2 ทาง:</p>
-          <ul>
-            <li>ยกเว้นโดเมนนี้ใน MitM เช่น Quantumult X ใส่ <code>-api.revenuecat.com</code> ในรายการ hostname</li>
-            <li>หรือปิด Proxy → เปิด APTV ให้กู้คืนเอง → แล้วค่อยเปิด Proxy กลับ</li>
-          </ul>
-        </div>
-      </details>
-
-      <details>
-        <summary>Alias limit reached (พบบ่อยมาก)<span class="err">Error creating subscriber alias. Alias limit reached.</span></summary>
-        <div class="body">
-          <p>แปลว่าเคยใช้ <b>บัญชีแชร์</b> ดาวน์โหลด/กู้คืนแอป แล้วบัญชีนั้นถูกแบนเพราะกู้คืนบ่อยเกินไป</p>
-          <p>แก้: <span class="path">Setting<i>›</i>About APTV<i>›</i>RCID</span> → สร้าง RCID ใหม่ → รอสักครู่แล้วกู้คืน ถ้ายังไม่ได้ให้ทำซ้ำ</p>
-        </div>
-      </details>
-
-      <details>
-        <summary>เกิดข้อผิดพลาดเครือข่าย / SSL<span class="err">A network error has occurred.</span></summary>
-        <div class="body">
-          <p>ปัญหาเน็ต — ถ้าเปิด VPN อยู่ให้ปิด ถ้าไม่ได้เปิดลองเปิดดู หรือรีสตาร์ตเครื่อง</p>
-        </div>
-      </details>
-
-      <div class="with-shot" style="margin-top:16px">
-        <div class="note" style="margin:0">
-          <b class="label">RCID อยู่ที่ไหน</b>
-          ในแอป APTV (ไม่ใช่การตั้งค่าของ iPhone): <span class="path">Setting<i>›</i>About APTV</span> เลื่อนลงไปที่ส่วน Contact แล้วแตะแถว <span class="ui">RCID</span><br><br>
-          ติดปัญหาอื่น ลองถาม <span class="ui">APTV Technical Support (AI Assistant)</span> ที่บนสุดของหน้า About APTV หรืออีเมล support@aptv.app
-        </div>
-        <figure class="shot"><img src="img/13-about-rcid.jpg" alt="About APTV แถว RCID" loading="lazy"><figcaption>About APTV (เบลอ RCID ไว้)</figcaption></figure>
-      </div>
-    </section>
-
-    <!-- 10 -->
-    <section id="ipv6">
-      <h2><span class="num">10</span>ดูช่อง IPv6</h2>
-      <p class="lead">ช่อง IPv6 มักเร็ว ชัด และเสถียรกว่า เพราะคนใช้น้อย เน็ตมือถือส่วนใหญ่รองรับอยู่แล้ว ปัญหามักอยู่ที่เน็ตบ้าน</p>
-
-      <h3>รู้ได้ไงว่าเป็นช่อง IPv6</h3>
-      <p>APTV แสดงป้าย <code>IPv6</code> ที่มุมซ้ายล่างของช่อง (ปิดได้ที่ Setting › Show IPV6 ID)</p>
-
-      <h3>เช็กว่าเน็ตรองรับไหม</h3>
-      <ul>
-        <li>เข้า <a href="https://test-ipv6.com/" target="_blank" rel="noopener">test-ipv6.com</a> (ปิด Proxy/VPN ก่อนทดสอบ)</li>
-        <li>ท้ายสุดของหน้า Setting จะเขียน <span class="ui">Current network type: IPv4 / IPv6</span> (แตะเพื่อตรวจใหม่ ควรปิด VPN ก่อน)</li>
-        <li>วิธีง่ายสุด: ลองเล่นช่อง IPv6 — เล่นได้คือรองรับ</li>
+  <section class="page" data-id="local" data-tab="config" data-title="Local">
+    <div class="crumb"><b>Config</b><span class="sepr">›</span>🔗+<span class="sepr">›</span>Local</div>
+    <h1 class="large">Local</h1>
+    <div class="card">
+      <ul class="check">
+        <li>เตรียมไฟล์ m3u / txt ไว้ในเครื่องหรือ iCloud Drive แล้วเลือกไฟล์</li>
+        <li>ทางลัด: ในแอปอื่น (Files, LINE, Mail) กดแชร์ไฟล์ → เปิดด้วย APTV</li>
+        <li>บน Mac: ลากไฟล์จาก Finder มาวางใน Config Center</li>
       </ul>
+    </div>
+    <div class="note"><b class="l">ขึ้นว่าเพิ่มสำเร็จแต่ไม่เห็นในรายการ</b>ปัดปิดแอปจาก App Switcher แล้วเปิดใหม่</div>
+  </section>
 
-      <h3>เปิด IPv6 ที่บ้าน</h3>
+  <section class="page" data-id="blank" data-tab="config" data-title="Blank">
+    <div class="crumb"><b>Config</b><span class="sepr">›</span>🔗+<span class="sepr">›</span>Blank</div>
+    <h1 class="large">Blank</h1>
+    <p class="sub">Config เปล่า ไว้ใส่ช่องเอง</p>
+    <div class="shots one"><figure><img src="img/03-blank-config-form.jpg" alt="Add Blank Config" loading="lazy"><figcaption>Add Blank Config</figcaption></figure></div>
+    <p>สร้างแล้วแตะเลือกใช้งาน จากนั้นไปเพิ่มช่องในแท็บ Channel → <a href="#single">ดูขั้นตอนเพิ่มช่องเดี่ยว</a></p>
+  </section>
+
+  <section class="page" data-id="merging" data-tab="config" data-title="Merging Config">
+    <div class="crumb"><b>Config</b><span class="sepr">›</span>🔗+<span class="sepr">›</span>Merging Config</div>
+    <h1 class="large">Merging Config</h1>
+    <p class="sub">รวมหลาย Config เป็นอันเดียว ช่องชื่อเดียวกันกลายเป็นช่องเดียวที่มีหลายแหล่ง</p>
+    <div class="card">
       <ol class="steps">
-        <li><strong>เปิด IPv6 ในเราเตอร์</strong><span>ส่วนใหญ่ปิดไว้ตั้งแต่โรงงาน เข้าหน้าแอดมินเราเตอร์ หาเมนู IPv6 แล้วเปิด — ถ้าเราเตอร์เป็นตัวต่อ PPPoE เลือกโหมด Native, ถ้า ONU/โมเด็มไฟเบอร์เป็นตัวต่อ ให้เราเตอร์ใช้โหมด NAT6</span></li>
-        <li><strong>ถ้ายังไม่ได้ IPv6 → เปิดที่ ONU/โมเด็มไฟเบอร์</strong><span>ตั้งโหมด IP เป็น “IPv4 &amp; IPv6” บางรุ่นต้องใช้รหัสผู้ดูแลระดับสูง (ไม่ใช่รหัสหลังเครื่อง) ขอได้จากฝ่ายบริการลูกค้าของผู้ให้บริการเน็ต</span></li>
-        <li><strong>เปิด IPv6 ในแอป Proxy (ถ้าใช้)</strong><span>ส่วนใหญ่ปิด IPv6 ไว้ เช่น Quantumult X ต้องเปิด “Compatibility Enhancement” ในการตั้งค่าอื่น ๆ</span></li>
+        <li><strong>Config → 🔗+ → <span class="ui">Merging Config</span></strong></li>
+        <li><strong>เลือก Config ที่จะรวมอย่างน้อย 1 อัน</strong><span>ลำดับที่แตะ = ลำดับความสำคัญ (แหล่งแรกเล่นก่อน)</span></li>
+        <li><strong>ดูรายการช่อง</strong><span>มุมขวาบนของช่องบอกจำนวนแหล่งสำรอง</span></li>
+        <li><strong>เล่น</strong><span>แหล่งปัจจุบันเล่นไม่ได้ จะสลับไปแหล่งถัดไปเอง</span></li>
       </ol>
-      <div class="note">
-        <b class="label">เคยดูได้ แต่จู่ ๆ ดูไม่ได้</b>
-        รีสตาร์ตเราเตอร์หรือโทรศัพท์ และตรวจว่าแอป Proxy ไม่ได้ปิด IPv6
-      </div>
-    </section>
+    </div>
+    <div class="note tip"><b class="l">ปรับเวลารอก่อนสลับ (ค่าเริ่มต้น 5 วินาที)</b><a class="path" href="#advanced">Setting<i>›</i>Advanced<i>›</i>Merging Config<i>›</i>Play Timeout</a></div>
+    <div class="shots one"><figure><img src="img/11-advanced-merge-timeout.jpg" alt="Play Timeout" loading="lazy"><figcaption>Setting › Advanced</figcaption></figure></div>
+    <p>ชื่อช่องต้องตรงกันทุกตัวอักษร: <code>Thai PBS</code> กับ <code>ThaiPBS HD</code> จะไม่รวมกัน</p>
+  </section>
 
-    <!-- 11 -->
-    <section id="faq">
-      <h2><span class="num">11</span>คำถามที่พบบ่อย</h2>
-      <details>
-        <summary>m3u กับ m3u8 ต่างกันยังไง</summary>
-        <div class="body"><p>ให้นึกถึง “ห้องเรียนกับนักเรียน” — <b>m3u</b> คือรายการหลายช่องรวมกัน (playlist) ส่วน <b>m3u8</b> โดยทั่วไปคือลิงก์สตรีมของช่องเดียว ใช้ Subscribe กับ m3u และใช้ Blank + เพิ่มช่อง กับ m3u8 (<a href="#single">หัวข้อ 03</a>)</p></div>
-      </details>
-      <details>
-        <summary>ช่องเปิดไม่ขึ้น / หมุนค้าง</summary>
-        <div class="body">
-          <ul>
-            <li>ดูค่า Delay บนการ์ดช่อง ถ้าไม่มีตัวเลขหรือสูงมาก แปลว่าแหล่งต้นทางมีปัญหา</li>
-            <li>ลองเปลี่ยน <span class="ui">Setting › Preferred Player</span></li>
-            <li>ลิงก์ที่ต้องใช้ Header ให้ใส่ใน <span class="ui">Request Parameters</span> ของช่อง</li>
-            <li>ใช้ Merging Config รวมหลายแหล่ง เพื่อให้สลับแหล่งสำรองอัตโนมัติ</li>
-          </ul>
-        </div>
-      </details>
-      <details>
-        <summary>ส่งไปเล่นใน VLC / Infuse หรือขึ้นทีวีได้ไหม</summary>
-        <div class="body"><p>ได้ มีตัวเลือกส่งช่องไปเล่นใน VLC หรือ Infuse และในหน้าเล่นมีปุ่ม AirPlay (ไอคอนจอ) ส่งขึ้น Apple TV / ทีวีที่รองรับ</p></div>
-      </details>
-      <details>
-        <summary>เพิ่มช่องเข้ารายการโปรดยังไง</summary>
-        <div class="body"><p>แตะ ♡ มุมขวาบนในหน้าเล่น แล้วดูได้ที่แท็บ <span class="ui">Favorite</span></p></div>
-      </details>
-    </section>
+  <section class="page" data-id="xtream" data-tab="config" data-title="Xtream / Stalker">
+    <div class="crumb"><b>Config</b><span class="sepr">›</span>🔗+<span class="sepr">›</span>Xtream Codes / Stalker Portal</div>
+    <h1 class="large">Xtream / Stalker</h1>
+    <p class="sub">สำหรับผู้ให้บริการ IPTV ที่ให้ข้อมูลล็อกอินแทนลิงก์</p>
+    <div class="card">
+      <table>
+        <tr><td>Xtream Codes</td><td>กรอก Server URL, Username, Password · รองรับดูย้อนหลัง</td></tr>
+        <tr><td>Stalker Portal</td><td>กรอก Portal URL และ MAC Address (แบบกล่อง MAG)</td></tr>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">ข้อมูลเหล่านี้ได้จากผู้ให้บริการ IPTV ที่คุณสมัครไว้</p>
+  </section>
 
-    <!-- browser -->
-    <section id="browser">
-      <h2><span class="num">12</span>เปิด YouTube และเว็บวิดีโอด้วย Browser ในแอป</h2>
-      <p class="lead">APTV มีเบราว์เซอร์ในตัว เปิดเว็บวิดีโอ (YouTube, Netflix, TikTok, Bilibili ฯลฯ) ได้จากในแอป</p>
+  <section class="page" data-id="catchup" data-tab="config" data-title="ดูย้อนหลัง">
+    <div class="crumb"><b>Config</b><span class="sepr">›</span>ไฟล์ m3u</div>
+    <h1 class="large">ดูย้อนหลัง</h1>
+    <p class="sub">สำหรับคนแก้ไฟล์ m3u เอง — ถ้าผู้ให้บริการตั้งให้แล้วข้ามได้ ดูย้อนหลังได้จากแท็บ Program ในหน้าเล่น</p>
+    <h3>อัตโนมัติ</h3>
+    <p>ลิงก์ช่องมี <code>PLTV</code> หรือ <code>TVOD</code> แอปจะต่อพารามิเตอร์นี้ให้เอง</p>
+    <div class="code"><pre>?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}</pre></div>
+    <h3>ทั้งไฟล์ (บรรทัด #EXTM3U)</h3>
+    <div class="code"><pre>#EXTM3U catchup="append" catchup-source="?playbackbegin=${(b)yyyyMMddHHmmss}&amp;playbackend=${(e)yyyyMMddHHmmss}"</pre></div>
+    <h3>เฉพาะช่อง (ต่อท้ายลิงก์เดิม)</h3>
+    <div class="code"><pre>#EXTINF:-1 catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}",CCTV1
+http://hostname:port/xxx</pre></div>
+    <h3>ลิงก์ย้อนหลังแยก</h3>
+    <div class="code"><pre>#EXTINF:-1 catchup="default" catchup-source="http://hostname:port/xxx2?playseek=${(b)yyyyMMddHHmmss}-${(e)yyyyMMddHHmmss}",CCTV1
+http://hostname:port/xxx</pre></div>
+    <h3>เวลา UTC</h3>
+    <div class="code"><pre>#EXTINF:-1 catchup="append" catchup-source="?playseek=${(b)yyyyMMddHHmmss:utc}-${(e)yyyyMMddHHmmss:utc}",CCTV1
+http://hostname:port/xxx</pre></div>
+    <div class="code"><pre>#EXTINF:-1 catchup="append" catchup-source="?playseek={utc:YmdHMS}-{utcend:YmdHMS}",CCTV1
+http://hostname:port/xxx</pre></div>
+    <h3>Timestamp</h3>
+    <div class="code"><pre>#EXTM3U catchup="append" catchup-source="?starttime=${(b)timestamp}&amp;endtime=${(e)timestamp}"</pre></div>
+    <div class="card">
+      <table>
+        <tr><td><code>${(b)…}</code> / <code>${(e)…}</code></td><td>เวลาเริ่ม / จบของรายการ</td></tr>
+        <tr><td><code>yyyyMMddHHmmss</code></td><td>เช่น 20261003203000</td></tr>
+        <tr><td><code>:utc</code></td><td>เวลา UTC (ไทย = UTC+7)</td></tr>
+        <tr><td><code>timestamp</code></td><td>Unix timestamp (วินาที)</td></tr>
+        <tr><td><code>append</code> / <code>default</code></td><td>ต่อท้ายลิงก์เดิม / ใช้ลิงก์ที่กำหนดแทน</td></tr>
+      </table>
+    </div>
+    <p>ต้องเปลี่ยน PLTV เป็น TVOD? → <a href="#lab">Advanced › Laboratory › Replace PLTV with TVOD</a></p>
+  </section>
+
+  <section class="page" data-id="mac" data-tab="config" data-title="ทริคบน Mac">
+    <div class="crumb"><b>Config</b><span class="sepr">›</span>macOS</div>
+    <h1 class="large">ทริคบน Mac</h1>
+    <div class="card">
+      <ul class="check">
+        <li><b>Local:</b> ลากไฟล์ m3u/txt จาก Finder มาวางใน Config Center</li>
+        <li><b>Subscribe:</b> คัดลอกลิงก์ แล้วกด ⌘V ใน Config Center</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="page" data-id="m3u" data-tab="config" data-title="m3u vs m3u8">
+    <h1 class="large">m3u กับ m3u8</h1>
+    <div class="card">
+      <p>นึกถึง “ห้องเรียนกับนักเรียน”</p>
+      <table>
+        <tr><td>m3u</td><td>รายการหลายช่องรวมกัน (playlist) → ใช้ <a href="#subscribe">Subscribe</a> / <a href="#local">Local</a></td></tr>
+        <tr><td>m3u8</td><td>ส่วนใหญ่คือลิงก์สตรีมช่องเดียว → ใช้ <a href="#single">Blank + เพิ่มช่อง</a> หรือ <a href="#quickplay">Quick Play</a></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== SETTING TAB ===================== -->
+  <section class="page" data-id="setting" data-tab="setting" data-title="Setting">
+    <h1 class="large">Setting</h1>
+    <p class="sub">เรียงตามหน้า Setting ในแอป</p>
+    <div class="group-h">General · Video · Channel</div>
+    <div class="group">
+      <a class="row" href="#settings"><span class="ic" style="--c:#ff9500"><svg class="i"><use href="#sliders"/></svg></span><span class="t">ตั้งค่าทั่วไปที่ควรรู้<small>Preferred Player, PiP, Show Delay…</small></span><span class="chev">›</span></a>
+    </div>
+    <div class="group-h">Electronic Program Guide</div>
+    <div class="group">
+      <a class="row" href="#epg"><span class="ic" style="--c:#34c759"><svg class="i"><use href="#tv"/></svg></span><span class="t">Auto Load EPG / Default EPG</span><span class="chev">›</span></a>
+    </div>
+    <div class="group-h">iCloud</div>
+    <div class="group">
+      <a class="row" href="#icloud"><span class="ic" style="--c:#0a84ff"><svg class="i"><use href="#cloud"/></svg></span><span class="t">iCloud Sync<small>สำรอง + sync ข้ามเครื่อง</small></span><span class="v">สำคัญ</span><span class="chev">›</span></a>
+    </div>
+    <div class="group-h">Other</div>
+    <div class="group">
+      <a class="row" href="#advanced"><span class="ic" style="--c:#ff375f"><svg class="i"><use href="#gear"/></svg></span><span class="t">Advanced<small>Buffer, Decoding, Play Timeout, Lab</small></span><span class="chev">›</span></a>
+      <a class="row" href="#about"><span class="ic" style="--c:#ff375f"><svg class="i"><use href="#info"/></svg></span><span class="t">About APTV<small>RCID, AI Assistant, ติดต่อ</small></span><span class="v">1.5.12</span><span class="chev">›</span></a>
+      <a class="row" href="#restore"><span class="ic" style="--c:#ff3b30"><svg class="i"><use href="#refresh"/></svg></span><span class="t">กู้คืนการซื้อไม่ได้</span><span class="chev">›</span></a>
+    </div>
+    <div class="group-f">ท้ายสุดของหน้า Setting มี “Current network type” → <a href="#ipv6">ดูเรื่อง IPv6</a></div>
+  </section>
+
+  <section class="page" data-id="settings" data-tab="setting" data-title="ตั้งค่าทั่วไป">
+    <div class="crumb"><b>Setting</b></div>
+    <h1 class="large">ตั้งค่าทั่วไป</h1>
+    <div class="shots one"><figure><img src="img/09-settings-top.jpg" alt="หน้า Setting" loading="lazy"><figcaption>หน้า Setting</figcaption></figure></div>
+    <div class="card">
+      <table>
+        <tr><td>Language</td><td>ภาษาแอป (ไม่มีไทย — คู่มือนี้อ้างอิง English)</td></tr>
+        <tr><td>Preferred Player</td><td>engine เล่นวิดีโอ ช่องเปิดไม่ได้ลองเปลี่ยน</td></tr>
+        <tr><td>Play In Background</td><td>เสียงเล่นต่อเมื่อออกจากแอป</td></tr>
+        <tr><td>Automatic Picture in Picture</td><td>ย่อเป็นจอลอยเมื่อออกจากแอป</td></tr>
+        <tr><td>Show Delay</td><td>แสดง ms บนการ์ดช่อง</td></tr>
+        <tr><td>Show Channel Preview</td><td>ภาพพรีวิวช่อง</td></tr>
+        <tr><td>Show Groups</td><td>แบ่งช่องตามหมวด</td></tr>
+        <tr><td>Show IPV6 ID</td><td>ป้าย IPv6 บนช่อง</td></tr>
+        <tr><td>Restore All Settings</td><td>คืนค่าการตั้งค่าทั้งหมด</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="page" data-id="epg" data-tab="setting" data-title="EPG">
+    <div class="crumb"><b>Setting</b><span class="sepr">›</span>Electronic Program Guide</div>
+    <h1 class="large">ผังรายการ (EPG)</h1>
+    <div class="card">
+      <table>
+        <tr><td>Auto Load EPG</td><td>โหลดผังรายการอัตโนมัติ</td></tr>
+        <tr><td>Default EPG</td><td>EPG กลางของแอป (มีให้แล้ว)</td></tr>
+      </table>
+    </div>
+    <p>ลำดับที่แอปใช้: EPG ที่ใส่ตอนเพิ่ม Config → <code>url-tvg</code> ในไฟล์ m3u → Default EPG</p>
+    <p>ดูผังได้ที่แท็บ <span class="ui">Program</span> ในหน้าเล่น</p>
+  </section>
+
+  <section class="page" data-id="icloud" data-tab="setting" data-title="iCloud Sync">
+    <div class="crumb"><b>Setting</b><span class="sepr">›</span>iCloud</div>
+    <h1 class="large">iCloud Sync</h1>
+    <p class="sub">ต้องเปิด 2 ที่</p>
+    <div class="card">
       <ol class="steps">
-        <li><strong>แท็บ Channel → ปุ่ม ▶ มุมขวาบน (Quick Play) → <span class="ui">Browser</span></strong><span>หน้าแรกมีทางลัด Video Websites (กดค้างเพื่อจัดลำดับ) และ Favorite channels (บุ๊กมาร์ก)</span></li>
-        <li><strong>แตะ <span class="ui">YouTube</span> หรือพิมพ์ URL / คำค้นในช่องด้านล่าง</strong><span>ล็อกอินบัญชี Google ในนี้ได้เหมือนเว็บทั่วไป</span></li>
-        <li><strong>เปิดคลิปแล้วดูบนหน้าเว็บได้เลย</strong></li>
-        <li><strong>ปุ่ม ▶ ข้างช่อง URL = <span class="ui">Video Sources</span></strong><span>แอปจะค้นหาลิงก์วิดีโอในหน้านั้น (ตัวเลขแดงคือจำนวนที่เจอ) ถ้าได้ลิงก์ จะเปิดด้วยเครื่องเล่นของ APTV ได้</span></li>
-        <li><strong>ปุ่ม ⋯ = เมนู More</strong><span>Bookmark This Page, Mobile Website, Website Media Compatibility, Page Zoom, Fullscreen Webpage, History และ Clear History and Website Data (จะออกจากระบบทุกเว็บ แต่เก็บบุ๊กมาร์กไว้)</span></li>
+        <li><strong>ในแอป: <span class="path">Setting<i>›</i>iCloud Sync</span> เปิดสวิตช์</strong><span><span class="ui">iCloud Status</span> ต้องไม่ใช่ Disabled แล้วกด <span class="ui">Manual Sync</span></span></li>
+        <li><strong>ใน iPhone: <span class="path">Settings<i>›</i>[ชื่อคุณ]<i>›</i>iCloud</span></strong><span>เปิด APTV และ iCloud Drive</span></li>
       </ol>
-      <div class="shots">
-        <figure><img src="img/14-browser-home.jpg" alt="หน้าแรก Browser ในแอป" loading="lazy"><figcaption><b>1</b> หน้าแรก Browser</figcaption></figure>
-        <figure><img src="img/15-browser-youtube.jpg" alt="YouTube ใน Browser" loading="lazy"><figcaption><b>2–3</b> YouTube (เบลอฟีดไว้)</figcaption></figure>
-        <figure><img src="img/16-video-sources.jpg" alt="Video Sources" loading="lazy"><figcaption><b>4</b> Video Sources ของคลิป YouTube</figcaption></figure>
-        <figure><img src="img/17-browser-more.jpg" alt="เมนู More ของ Browser" loading="lazy"><figcaption><b>5</b> เมนู More</figcaption></figure>
-      </div>
-      <div class="note warn">
-        <b class="label">YouTube ส่งเข้าเครื่องเล่น APTV ไม่ได้</b>
-        ทดสอบแล้ว Video Sources เจอคลิป แต่ขึ้นว่า YouTube ไม่ให้ลิงก์สำหรับเล่นแยก (<i>does not expose a playback URL</i>) ต้องดูบนหน้าเว็บเท่านั้น ฟีเจอร์ส่งเข้าเครื่องเล่นจึงใช้ได้กับเว็บที่เปิดลิงก์ m3u8/mp4 ตรง ๆ
-      </div>
-      <div class="note tip">
-        <b class="label">คลิปเล่นไม่ได้ หรือภาพเต็มจอไม่ได้</b>
-        ลอง ⋯ → <span class="ui">Website Media Compatibility</span> หรือ <span class="ui">Fullscreen Webpage</span> ส่วนเว็บที่ใช้บ่อยให้กด ⋯ → Bookmark This Page จะขึ้นในหน้าแรก Browser
-      </div>
-    </section>
+    </div>
+    <div class="shots one"><figure><img src="img/10-settings-icloud.jpg" alt="iCloud ในแอป" loading="lazy"><figcaption>ส่วน iCloud (ภาพนี้ยังปิดอยู่)</figcaption></figure></div>
+    <div class="note bad"><b class="l">Config หายหมด?</b>ออกจาก iCloud / สลับบัญชี / ปิด iCloud ของแอป → Apple ล้างข้อมูลในเครื่อง แต่บนคลาวด์ยังอยู่ <b>เปิดกลับแล้วจะ sync คืน</b> · ถ้าไม่เคยเปิด sync เลย ลบแอปแล้วหายถาวร</div>
+    <h3>Sync ข้ามเครื่องไม่ได้</h3>
+    <div class="card">
+      <ul class="check">
+        <li>เป็น APTV Pro และกดกู้คืนการซื้อทุกเครื่องแล้ว</li>
+        <li>ทุกเครื่องใช้ Apple ID เดียวกัน</li>
+        <li>iCloud Status ไม่ใช่ Disabled ทุกเครื่อง</li>
+        <li>พื้นที่ iCloud ไม่เต็ม</li>
+        <li><b>Apple TV: ตั้ง Default User ถูกบัญชี</b> — สาเหตุ ~99%</li>
+        <li>Apple TV: ออกจาก iCloud แล้วเข้าใหม่</li>
+        <li>Apple TV: ถอดปลั๊กไฟแล้วเสียบใหม่</li>
+      </ul>
+    </div>
+    <div class="note"><b class="l">ตั้ง Default User บน Apple TV</b>การสลับผู้ใช้ ≠ ผู้ใช้เริ่มต้น ไปที่ <span class="path">Settings<i>›</i>Users and Accounts<i>›</i>Default User</span></div>
+  </section>
 
-    <footer>
-      สรุปและแปลจาก <a href="https://docs.aptvapp.com/" target="_blank" rel="noopener">docs.aptvapp.com</a> · ภาพหน้าจอจาก APTV 1.5.12 (iOS) ภาษา English · ภาพช่องทีวีถูกเบลอไว้
-    </footer>
+  <section class="page" data-id="advanced" data-tab="setting" data-title="Advanced">
+    <div class="crumb"><b>Setting</b><span class="sepr">›</span>Advanced</div>
+    <h1 class="large">Advanced</h1>
+    <div class="group-h">ทั่วไป</div>
+    <div class="group">
+      <div class="row"><span class="ic" style="--c:#ff375f"><svg class="i"><use href="#globe"/></svg></span><span class="t">User-Agent<small>UA ที่ส่งไปทุกช่อง</small></span><span class="v">AptvPlayer/1.5.12</span></div>
+      <a class="row" href="#lab"><span class="ic" style="--c:#ff375f"><svg class="i"><use href="#flask"/></svg></span><span class="t">Laboratory<small>ฟีเจอร์ทดลอง</small></span><span class="chev">›</span></a>
+    </div>
+    <div class="group-h">Realtime Subtitles</div>
+    <div class="group">
+      <div class="row"><span class="ic" style="--c:#ff375f"><svg class="i"><use href="#cc"/></svg></span><span class="t">ซับไตเติลเรียลไทม์ + แปลภาษา<small>โหลด Speech Recognition Model ก่อน แล้วกด Auto Subtitles ระหว่างเล่น</small></span></div>
+    </div>
+    <div class="group-h">Video</div>
+    <div class="group">
+      <div class="row"><span class="t">Minimum Buffer Time<small>เพิ่มถ้ากระตุกบ่อย (เปิดช่องช้าลง)</small></span><span class="v">3s</span></div>
+      <div class="row"><span class="t">Hardware Decoding<small>เปิด = ลื่น · ปิดเมื่อเจอฟอร์แมตที่เล่นไม่ได้</small></span><span class="v">On</span></div>
+      <div class="row"><span class="t">DeInterlace<small>แก้ภาพเส้นหวีในช่อง interlaced</small></span><span class="v">Off</span></div>
+    </div>
+    <div class="group-h">Merging Config · RTSP · Connection</div>
+    <div class="group">
+      <div class="row"><span class="t">Play Timeout<small>รอกี่วินาทีก่อนสลับแหล่งสำรอง</small></span><span class="v">5s</span></div>
+      <div class="row"><span class="t">RTSP Transport Protocol</span><span class="v">TCP</span></div>
+      <div class="row"><span class="t">Proxy<small>ตั้ง Proxy เฉพาะแอป</small></span><span class="v">no</span></div>
+    </div>
+    <div class="group-f">ค่าที่แสดงคือค่าเริ่มต้นในแอปเวอร์ชัน 1.5.12</div>
+    <div class="shots one"><figure><img src="img/11-advanced-merge-timeout.jpg" alt="Advanced" loading="lazy"><figcaption>Setting › Advanced (ส่วนล่าง)</figcaption></figure></div>
+  </section>
+
+  <section class="page" data-id="lab" data-tab="setting" data-title="Laboratory">
+    <div class="crumb"><b>Setting</b><span class="sepr">›</span>Advanced<span class="sepr">›</span>Laboratory</div>
+    <h1 class="large">Laboratory</h1>
+    <p class="sub">ฟีเจอร์ทดลอง เปิดเมื่อมีปัญหาเฉพาะเท่านั้น</p>
+    <div class="card">
+      <table>
+        <tr><td>Multicast FCC Optimization</td><td>เปิดช่อง multicast ที่รองรับ FCC ได้เร็วขึ้น</td></tr>
+        <tr><td>Preselect HLS Quality</td><td>เลือกความละเอียดก่อนเล่น HLS หลาย bitrate ให้เปิดเร็วขึ้น</td></tr>
+        <tr><td>Replace PLTV with TVOD</td><td>บางผู้ให้บริการต้องใช้ตอนดูย้อนหลัง</td></tr>
+        <tr><td>Enhanced System Player</td><td>ปรับให้เครื่องเล่นระบบเล่นช่องที่เปิดไม่ได้</td></tr>
+      </table>
+    </div>
+    <div class="shots one"><figure><img src="img/12-laboratory.jpg" alt="Laboratory" loading="lazy"><figcaption>Laboratory</figcaption></figure></div>
+  </section>
+
+  <section class="page" data-id="about" data-tab="setting" data-title="About APTV">
+    <div class="crumb"><b>Setting</b><span class="sepr">›</span>About APTV</div>
+    <h1 class="large">About APTV</h1>
+    <div class="card">
+      <table>
+        <tr><td>APTV Technical Support</td><td>AI Assistant ถาม-ตอบเรื่องแอป (บนสุดของหน้า)</td></tr>
+        <tr><td>How To Start / FAQ</td><td>คู่มือทางการในแอป</td></tr>
+        <tr><td>tvOS / macOS / watchOS</td><td>ลิงก์ดาวน์โหลดแอปเวอร์ชันอื่น</td></tr>
+        <tr><td>Email</td><td>support@aptv.app</td></tr>
+        <tr><td>RCID</td><td>รหัสผู้ซื้อ ใช้แก้ <a href="#restore">กู้คืนการซื้อไม่ได้</a> (แตะเพื่อสร้างใหม่)</td></tr>
+      </table>
+    </div>
+    <div class="shots one"><figure><img src="img/13-about-rcid.jpg" alt="About APTV" loading="lazy"><figcaption>แถว RCID (เบลอไว้)</figcaption></figure></div>
+  </section>
+
+  <section class="page" data-id="restore" data-tab="setting" data-title="กู้คืนการซื้อ">
+    <div class="crumb"><b>Setting</b><span class="sepr">›</span>APTV Pro</div>
+    <h1 class="large">กู้คืนการซื้อไม่ได้</h1>
+    <p class="sub">แตะข้อความ error ที่ตรงกับที่เห็น</p>
+    <details>
+      <summary>ไม่พบหลักฐานการซื้อ<span class="err">未获取到您的购买凭据</span></summary>
+      <div class="b">
+        <p><b>ล็อกอินผิดบัญชี</b> — ต้องเป็นบัญชีที่ซื้อ ตรวจที่ <a href="https://reportaproblem.apple.com/" target="_blank" rel="noopener">reportaproblem.apple.com</a></p>
+        <p><b>บัญชีดาวน์โหลด ≠ บัญชีซื้อ</b> — ลบแอป → ล็อกอินบัญชีที่ซื้อ → ดาวน์โหลดใหม่ → กู้คืน (Apple TV ไม่ติดข้อนี้)</p>
+        <p><b>ซื้อก่อน 1 ต.ค. 2022</b> — <a href="#about">About APTV › RCID</a> สร้างใหม่ รอสักครู่แล้วกู้คืน ทำซ้ำได้</p>
+      </div>
+    </details>
+    <details>
+      <summary>คำขอไม่น่าเชื่อถือ (MitM)<span class="err">无法信任的请求</span></summary>
+      <div class="b"><p>Proxy/VPN กำลัง MitM <code>api.revenuecat.com</code> → ยกเว้นโดเมนนี้ (Quantumult X ใส่ <code>-api.revenuecat.com</code>) หรือปิด Proxy → เปิด APTV ให้กู้คืน → เปิด Proxy กลับ</p></div>
+    </details>
+    <details>
+      <summary>Alias limit reached (พบบ่อยมาก)<span class="err">Error creating subscriber alias. Alias limit reached.</span></summary>
+      <div class="b"><p>เคยใช้ <b>บัญชีแชร์</b> แล้วบัญชีนั้นโดนแบน → <a href="#about">About APTV › RCID</a> สร้างใหม่ รอสักครู่แล้วกู้คืน</p></div>
+    </details>
+    <details>
+      <summary>Network / SSL error<span class="err">A network error has occurred.</span></summary>
+      <div class="b"><p>ปิด VPN (หรือลองเปิด) แล้วรีสตาร์ตเครื่อง</p></div>
+    </details>
+  </section>
+
+  <section class="page" data-id="ipv6" data-tab="setting" data-title="IPv6">
+    <div class="crumb"><b>Setting</b><span class="sepr">›</span>Current network type</div>
+    <h1 class="large">ช่อง IPv6</h1>
+    <p class="sub">เร็ว ชัด เสถียรกว่าเพราะคนใช้น้อย · เน็ตมือถือมักรองรับอยู่แล้ว ปัญหามักอยู่ที่เน็ตบ้าน</p>
+    <div class="card">
+      <table>
+        <tr><td>รู้ได้ไงว่าเป็นช่อง IPv6</td><td>มีป้าย IPv6 มุมซ้ายล่างของช่อง</td></tr>
+        <tr><td>เช็กเน็ต</td><td>ท้ายหน้า Setting: <span class="ui">Current network type</span> (ปิด VPN ก่อน) หรือ <a href="https://test-ipv6.com/" target="_blank" rel="noopener">test-ipv6.com</a></td></tr>
+      </table>
+    </div>
+    <h3>เปิด IPv6 ที่บ้าน</h3>
+    <div class="card">
+      <ol class="steps">
+        <li><strong>เราเตอร์: เปิด IPv6</strong><span>เราเตอร์ต่อ PPPoE เอง → Native · ONU ต่อ PPPoE → NAT6</span></li>
+        <li><strong>ONU/โมเด็มไฟเบอร์: ตั้ง IPv4 &amp; IPv6</strong><span>บางรุ่นต้องรหัสแอดมินระดับสูง ขอจากผู้ให้บริการเน็ต</span></li>
+        <li><strong>แอป Proxy: เปิด IPv6</strong><span>Quantumult X → Compatibility Enhancement</span></li>
+      </ol>
+    </div>
+    <div class="note"><b class="l">เคยดูได้ แล้วจู่ ๆ ไม่ได้</b>รีสตาร์ตเราเตอร์/มือถือ และเช็กแอป Proxy</div>
+  </section>
+
+  <!-- ===================== SEARCH ===================== -->
+  <section class="page" data-id="search" data-tab="search" data-title="ค้นหา">
+    <h1 class="large">ค้นหา</h1>
+    <label class="searchbox"><svg class="i"><use href="#search"/></svg><input id="q" type="search" placeholder="เช่น iCloud, RCID, m3u8, YouTube" autocomplete="off"></label>
+    <div class="group" id="results"></div>
+    <p class="group-f" id="hint">พิมพ์คำที่อยากหา ระบบจะค้นทุกหน้าในคู่มือ</p>
+  </section>
+
   </main>
+
+  <div class="tabwrap">
+    <nav class="tabbar" aria-label="แท็บหลัก">
+      <a class="tab" data-tab="channel" href="#channel"><svg class="i"><use href="#globe"/></svg>Channel</a>
+      <a class="tab" data-tab="favorite" href="#favorite"><svg class="i"><use href="#heart"/></svg>Favorite</a>
+      <a class="tab" data-tab="config" href="#config"><svg class="i"><use href="#folder"/></svg>Config</a>
+      <a class="tab" data-tab="setting" href="#setting"><svg class="i"><use href="#gear"/></svg>Setting</a>
+    </nav>
+    <a class="searchbtn" id="searchbtn" href="#search" aria-label="ค้นหา"><svg class="i"><use href="#search"/></svg></a>
+  </div>
 </div>
 
 <script>
-// copy buttons
-document.querySelectorAll('.code').forEach(function (box) {
-  var btn = document.createElement('button');
-  btn.className = 'copy';
-  btn.type = 'button';
-  btn.textContent = 'คัดลอก';
-  btn.addEventListener('click', function () {
-    var text = box.querySelector('pre').innerText;
-    var done = function () {
-      btn.textContent = 'คัดลอกแล้ว';
-      setTimeout(function () { btn.textContent = 'คัดลอก'; }, 1500);
+(function () {
+  var pages = {};
+  document.querySelectorAll('.page').forEach(function (p) { pages[p.dataset.id] = p; });
+  var roots = { channel: 1, favorite: 1, config: 1, setting: 1, search: 1 };
+  var nav = document.getElementById('topnav');
+  var navTitle = document.getElementById('navtitle');
+  var depth = 0; // in-app navigations, so Back never leaves the guide
+
+  function show(id) {
+    var p = pages[id] || pages.channel;
+    var prev = document.querySelector('.page.active');
+    if (prev) prev.classList.remove('active', 'push');
+    var isRoot = !!roots[p.dataset.id];
+    p.classList.add('active');
+    p.classList.toggle('push', !isRoot);
+    nav.classList.toggle('detail', !isRoot);
+    navTitle.textContent = p.dataset.title || '';
+    document.querySelectorAll('.tab').forEach(function (t) { t.classList.toggle('on', t.dataset.tab === p.dataset.tab); });
+    document.getElementById('searchbtn').classList.toggle('on', p.dataset.tab === 'search');
+    document.title = (isRoot ? '' : p.dataset.title + ' · ') + 'คู่มือ APTV';
+    window.scrollTo(0, 0);
+    onScroll();
+    if (p.dataset.id === 'search') setTimeout(function () { document.getElementById('q').focus(); }, 50);
+  }
+  function route() { show((location.hash || '#channel').slice(1)); }
+  window.addEventListener('hashchange', function () { depth++; route(); });
+
+  document.getElementById('back').addEventListener('click', function () {
+    if (depth > 0) { depth -= 2; history.back(); return; }
+    var cur = document.querySelector('.page.active');
+    location.hash = cur ? cur.dataset.tab : 'channel';
+  });
+
+  function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 40); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // copy buttons
+  document.querySelectorAll('.code').forEach(function (box) {
+    var b = document.createElement('button'); b.className = 'copy'; b.type = 'button'; b.textContent = 'คัดลอก';
+    b.onclick = function () {
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(box.querySelector('pre').innerText).then(function () {
+        b.textContent = 'คัดลอกแล้ว'; setTimeout(function () { b.textContent = 'คัดลอก'; }, 1500);
+      }, function () {});
     };
-    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () {});
+    box.appendChild(b);
   });
-  box.appendChild(btn);
-});
 
-// theme toggle
-var root = document.documentElement;
-try { var saved = localStorage.getItem('aptv-theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
-document.getElementById('themeBtn').addEventListener('click', function () {
-  var dark = root.dataset.theme
-    ? root.dataset.theme === 'dark'
-    : matchMedia('(prefers-color-scheme: dark)').matches;
-  root.dataset.theme = dark ? 'light' : 'dark';
-  try { localStorage.setItem('aptv-theme', root.dataset.theme); } catch (e) {}
-});
-
-// mobile menu
-var toc = document.getElementById('toc');
-var menuBtn = document.getElementById('menuBtn');
-menuBtn.addEventListener('click', function () {
-  var open = toc.classList.toggle('open');
-  menuBtn.setAttribute('aria-expanded', open);
-});
-toc.addEventListener('click', function (e) {
-  if (e.target.tagName === 'A') { toc.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); }
-});
-
-// active section highlight
-var links = Array.prototype.slice.call(toc.querySelectorAll('a'));
-var observer = new IntersectionObserver(function (entries) {
-  entries.forEach(function (en) {
-    if (en.isIntersecting) {
-      links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id); });
-    }
+  // theme
+  var root = document.documentElement;
+  try { var s = localStorage.getItem('aptv-theme'); if (s) root.dataset.theme = s; } catch (e) {}
+  document.getElementById('theme').addEventListener('click', function () {
+    var dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('aptv-theme', root.dataset.theme); } catch (e) {}
   });
-}, { rootMargin: '-30% 0px -60% 0px' });
-document.querySelectorAll('main section').forEach(function (s) { observer.observe(s); });
+
+  // search
+  var tabName = { channel: 'Channel', favorite: 'Favorite', config: 'Config', setting: 'Setting' };
+  var index = Object.keys(pages).filter(function (k) { return !roots[k]; }).map(function (k) {
+    return { id: k, title: pages[k].dataset.title, tab: pages[k].dataset.tab, text: pages[k].textContent.replace(/\s+/g, ' ').trim() };
+  });
+  var q = document.getElementById('q'), out = document.getElementById('results'), hint = document.getElementById('hint');
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  q.addEventListener('input', function () {
+    var term = q.value.trim().toLowerCase();
+    out.innerHTML = '';
+    if (!term) { hint.textContent = 'พิมพ์คำที่อยากหา ระบบจะค้นทุกหน้าในคู่มือ'; return; }
+    var hits = index.filter(function (e) { return (e.title + ' ' + e.text).toLowerCase().indexOf(term) !== -1; });
+    hint.textContent = hits.length ? '' : 'ไม่พบ ลองคำอื่น';
+    hits.forEach(function (e) {
+      var i = e.text.toLowerCase().indexOf(term), snip = '';
+      if (i !== -1) {
+        var a = Math.max(0, i - 30), raw = e.text.slice(a, i + term.length + 50), j = i - a;
+        snip = (a ? '…' : '') + esc(raw.slice(0, j)) + '<mark>' + esc(raw.slice(j, j + term.length)) + '</mark>' + esc(raw.slice(j + term.length)) + '…';
+      }
+      var r = document.createElement('a'); r.className = 'row'; r.href = '#' + e.id;
+      r.innerHTML = '<span class="t">' + esc(e.title) + '<small>' + (tabName[e.tab] || '') + (snip ? ' · ' + snip : '') + '</small></span><span class="chev">›</span>';
+      out.appendChild(r);
+    });
+  });
+
+  route();
+})();
 </script>
 </body>
 </html>
